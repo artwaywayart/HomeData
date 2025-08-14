@@ -19,17 +19,101 @@
         .modal-backdrop {
             backdrop-filter: blur(5px);
         }
+        
+        /* Dark Theme Styles */
+        .dark {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e2e8f0;
+        }
+        
+        .dark .bg-white {
+            background-color: #2d3748 !important;
+            color: #e2e8f0 !important;
+        }
+        
+        .dark .text-gray-800 {
+            color: #e2e8f0 !important;
+        }
+        
+        .dark .text-gray-600 {
+            color: #a0aec0 !important;
+        }
+        
+        .dark .text-gray-500 {
+            color: #718096 !important;
+        }
+        
+        .dark .border-gray-200 {
+            border-color: #4a5568 !important;
+        }
+        
+        .dark .border-gray-300 {
+            border-color: #4a5568 !important;
+        }
+        
+        .dark .bg-gray-50 {
+            background-color: #374151 !important;
+            color: #e2e8f0 !important;
+        }
+        
+        .dark .bg-gray-100 {
+            background-color: #374151 !important;
+            color: #e2e8f0 !important;
+        }
+        
+        .dark .bg-blue-100 {
+            background-color: #2563eb !important;
+        }
+        
+        .dark .bg-green-100 {
+            background-color: #059669 !important;
+        }
+        
+        .dark .bg-red-100 {
+            background-color: #dc2626 !important;
+        }
+        
+        .dark .bg-yellow-100 {
+            background-color: #d97706 !important;
+        }
+        
+        .dark input {
+            background-color: #374151 !important;
+            color: #e2e8f0 !important;
+            border-color: #4a5568 !important;
+        }
+        
+        .dark input:focus {
+            border-color: #3b82f6 !important;
+        }
+        
+        .dark .card-shadow {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
-    <!-- Login Button -->
-    <div class="fixed top-4 right-4 z-50">
-        <button id="loginBtn" onclick="showLoginModal()" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-sm transition-colors">
-            <i class="fas fa-user mr-2"></i>เข้าสู่ระบบ
+    <!-- Top Controls -->
+    <div class="fixed top-4 right-4 z-50 flex items-center space-x-2">
+        <!-- Theme Toggle -->
+        <button id="themeToggle" onclick="toggleTheme()" class="bg-gray-600 hover:bg-gray-700 text-white p-3 rounded-lg text-sm transition-colors">
+            <i id="themeIcon" class="fas fa-moon"></i>
         </button>
-        <button id="logoutBtn" onclick="logout()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm transition-colors hidden">
-            <i class="fas fa-sign-out-alt mr-2"></i>ออกจากระบบ
+        
+        <!-- Login Button -->
+        <button id="loginBtn" onclick="showLoginModal()" class="bg-gray-600 hover:bg-gray-700 text-white p-3 rounded-lg text-sm transition-colors">
+            <i class="fas fa-user"></i>
         </button>
+        
+        <!-- Admin Buttons -->
+        <div id="adminButtons" class="hidden flex space-x-2">
+            <button onclick="backToAdmin()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i>ย้อนกลับหน้าแอดมิน
+            </button>
+            <button onclick="logout()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm transition-colors">
+                <i class="fas fa-sign-out-alt mr-2"></i>ออกจากระบบ
+            </button>
+        </div>
     </div>
 
     <!-- Main Content -->
@@ -38,9 +122,9 @@
         <div class="bg-white rounded-2xl p-6 mb-6 card-shadow">
             <div class="text-center mb-6">
                 <div class="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-home text-blue-600 text-3xl"></i>
+                    <i class="fas fa-house-chimney text-blue-600 text-3xl"></i>
                 </div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">จำนวนเงินกู้</h2>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">สินเชื่อเงินกู้</h2>
                 <p class="text-3xl font-bold text-blue-600">1,000,000 บาท</p>
             </div>
             
@@ -71,9 +155,9 @@
 
         <!-- Card 2: Payment -->
         <div class="bg-white rounded-2xl p-6 mb-6 card-shadow">
-            <h3 class="text-xl font-bold text-gray-800 mb-4">ยอดที่ต้องชำระ</h3>
-            <p class="text-2xl font-bold text-orange-600 mb-2">13,000 บาท</p>
-            <p class="text-gray-600 mb-4">กำหนดชำระวันที่ 15 ของทุกเดือน</p>
+            <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">ยอดที่ต้องชำระ</h3>
+            <p class="text-2xl font-bold text-orange-600 mb-2 text-center">13,000 บาท</p>
+            <p class="text-gray-600 mb-4 text-center">กำหนดชำระวันที่ 15 ของทุกเดือน</p>
             
             <button onclick="showPaymentModal()" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-xl transition-colors">
                 <i class="fas fa-credit-card mr-2"></i>แจ้งชำระเงิน
@@ -92,12 +176,17 @@
     <!-- Admin Panel -->
     <div id="adminPanel" class="container mx-auto px-4 py-8 max-w-6xl hidden">
         <div class="bg-white rounded-2xl p-6 card-shadow">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6">หน้าจัดการข้อมูล (แอดมิน)</h2>
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">หน้าจัดการข้อมูล (แอดมิน)</h2>
+                <button onclick="showMainPage()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm transition-colors">
+                    <i class="fas fa-home mr-2"></i>ดูหน้าแรก
+                </button>
+            </div>
             <div id="adminData" class="overflow-x-auto">
                 <table class="w-full table-auto">
                     <thead>
                         <tr class="bg-gray-50">
-                            <th class="px-4 py-2 text-left">รูปภาพ</th>
+                            <th class="px-4 py-2 text-left">หลักฐาน</th>
                             <th class="px-4 py-2 text-left">จำนวนเงิน</th>
                             <th class="px-4 py-2 text-left">วันที่</th>
                             <th class="px-4 py-2 text-left">สถานะ</th>
@@ -144,7 +233,8 @@
             
             <div class="mb-6">
                 <label class="block text-gray-700 text-sm font-bold mb-2">จำนวนเงินที่ชำระ</label>
-                <input type="number" id="paymentAmount" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" placeholder="กรุณาใส่จำนวนเงิน">
+                <input type="number" id="paymentAmount" min="13000" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" placeholder="กรุณาใส่จำนวนเงิน (ขั้นต่ำ 13,000 บาท)">
+                <p class="text-sm text-red-500 mt-1">*จำนวนเงินขั้นต่ำ 13,000 บาท</p>
             </div>
             
             <div class="mb-6">
@@ -153,7 +243,12 @@
             </div>
             
             <div class="flex space-x-4">
-                <button onclick="confirmPayment()" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors">ยืนยันการชำระเงิน</button>
+                <button id="confirmBtn" onclick="confirmPayment()" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                    <span id="confirmText">ยืนยันการชำระเงิน</span>
+                    <span id="loadingText" class="hidden">
+                        <i class="fas fa-spinner fa-spin mr-2"></i>กำลังบันทึก...
+                    </span>
+                </button>
                 <button onclick="hidePaymentModal()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">ยกเลิก</button>
             </div>
         </div>
@@ -167,7 +262,7 @@
                     <i class="fas fa-check text-green-600 text-2xl"></i>
                 </div>
                 <h3 class="text-xl font-bold text-gray-800 mb-4">บันทึกข้อมูลสำเร็จ</h3>
-                <p class="text-gray-600 mb-6">รอการอนุมัติ 1-2 วันทำการ</p>
+                <p class="text-gray-600 mb-6">รอการอนุมัติ 1-2 วันหลังทำการ</p>
                 <button onclick="hideSuccessModal()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-colors">ตกลง</button>
             </div>
         </div>
@@ -187,13 +282,47 @@
         </div>
     </div>
 
+    <!-- Image Modal -->
+    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 modal-backdrop hidden flex items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-6 max-w-4xl max-h-[90vh] w-full mx-4 overflow-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-gray-800">หลักฐานการชำระเงิน</h3>
+                <button onclick="hideImageModal()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors">
+                    <i class="fas fa-times mr-2"></i>ปิด
+                </button>
+            </div>
+            <div class="text-center">
+                <img id="modalImage" src="" alt="หลักฐานการชำระเงิน" class="max-w-full max-h-[70vh] object-contain rounded-lg border">
+            </div>
+        </div>
+    </div>
+
     <script>
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwBf4HUcPviUItRRrCOPtEKhOZyUB64lGWnYr5pV83imWLvshYDp-XAyayC8fpURex3mw/exec';
         let isAdmin = false;
         let allData = [];
+        let currentPage = 1;
+        const itemsPerPage = 10;
 
         // Initialize app
         document.addEventListener('DOMContentLoaded', function() {
+            // Check if admin is logged in from localStorage
+            const adminLoggedIn = localStorage.getItem('adminLoggedIn');
+            if (adminLoggedIn === 'true') {
+                isAdmin = true;
+                document.getElementById('loginBtn').classList.add('hidden');
+                document.getElementById('adminButtons').classList.remove('hidden');
+                document.getElementById('mainContent').classList.add('hidden');
+                document.getElementById('adminPanel').classList.remove('hidden');
+            }
+            
+            // Check theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark');
+                document.getElementById('themeIcon').className = 'fas fa-sun';
+            }
+            
             loadData();
             
             // Image preview
@@ -215,8 +344,9 @@
             try {
                 const response = await fetch(`${SCRIPT_URL}?action=getData`);
                 const data = await response.json();
-                allData = data;
-                updateUI(data);
+                // Sort data by newest first - data that was just added will appear at the top
+                allData = data.reverse(); // Reverse to show newest entries first
+                updateUI(allData);
             } catch (error) {
                 console.error('Error loading data:', error);
             }
@@ -256,10 +386,14 @@
                 return;
             }
 
-            historyDiv.innerHTML = data.map(row => `
+            const totalPages = Math.ceil(data.length / itemsPerPage);
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const currentData = data.slice(startIndex, endIndex);
+
+            const historyHTML = currentData.map((row, index) => `
                 <div class="border border-gray-200 rounded-lg p-4">
-                    <div class="flex items-start space-x-4">
-                        <img src="${row.imageUrl || '/api/placeholder/60/60'}" alt="หลักฐานการชำระ" class="w-15 h-15 object-cover rounded-lg">
+                    <div class="flex items-start justify-between">
                         <div class="flex-1">
                             <p class="font-bold text-lg">${parseFloat(row.amount).toLocaleString()} บาท</p>
                             <p class="text-gray-600 text-sm">${row.datetime}</p>
@@ -267,9 +401,32 @@
                                 ${row.status}
                             </span>
                         </div>
+                        <button onclick="openImageInNewTab('${row.imageUrl}')" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg text-sm transition-colors">
+                            <i class="fas fa-eye mr-1"></i>ดูหลักฐานการชำระเงิน
+                        </button>
                     </div>
                 </div>
             `).join('');
+
+            // Pagination controls
+            let paginationHTML = '';
+            if (totalPages > 1) {
+                paginationHTML = `
+                    <div class="flex justify-center items-center space-x-2 mt-6">
+                        <button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''} 
+                                class="px-3 py-2 rounded-lg text-sm ${currentPage === 1 ? 'bg-gray-300 text-gray-500' : 'bg-blue-500 hover:bg-blue-600 text-white'} transition-colors">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span class="px-4 py-2 text-sm text-gray-600">หน้า ${currentPage} จาก ${totalPages}</span>
+                        <button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''} 
+                                class="px-3 py-2 rounded-lg text-sm ${currentPage === totalPages ? 'bg-gray-300 text-gray-500' : 'bg-blue-500 hover:bg-blue-600 text-white'} transition-colors">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                `;
+            }
+
+            historyDiv.innerHTML = historyHTML + paginationHTML;
         }
 
         // Show payment modal
@@ -309,6 +466,20 @@
                 return;
             }
 
+            if (parseFloat(amount) < 13000) {
+                showError('จำนวนเงินต้องไม่ต่ำกว่า 13,000 บาท');
+                return;
+            }
+
+            // Show loading state
+            const confirmBtn = document.getElementById('confirmBtn');
+            const confirmText = document.getElementById('confirmText');
+            const loadingText = document.getElementById('loadingText');
+            
+            confirmBtn.disabled = true;
+            confirmText.classList.add('hidden');
+            loadingText.classList.remove('hidden');
+
             try {
                 // Convert image to base64
                 const base64 = await fileToBase64(imageFile);
@@ -339,6 +510,11 @@
             } catch (error) {
                 console.error('Error:', error);
                 showError('เกิดข้อผิดพลาดในการส่งข้อมูล');
+            } finally {
+                // Reset loading state
+                confirmBtn.disabled = false;
+                confirmText.classList.remove('hidden');
+                loadingText.classList.add('hidden');
             }
         }
 
@@ -367,9 +543,10 @@
             
             if (password === '000') {
                 isAdmin = true;
+                localStorage.setItem('adminLoggedIn', 'true'); // Save admin status
                 hideLoginModal();
                 document.getElementById('loginBtn').classList.add('hidden');
-                document.getElementById('logoutBtn').classList.remove('hidden');
+                document.getElementById('adminButtons').classList.remove('hidden');
                 document.getElementById('mainContent').classList.add('hidden');
                 document.getElementById('adminPanel').classList.remove('hidden');
                 loadData();
@@ -380,8 +557,9 @@
 
         function logout() {
             isAdmin = false;
+            localStorage.removeItem('adminLoggedIn'); // Remove admin status
             document.getElementById('loginBtn').classList.remove('hidden');
-            document.getElementById('logoutBtn').classList.add('hidden');
+            document.getElementById('adminButtons').classList.add('hidden');
             document.getElementById('mainContent').classList.remove('hidden');
             document.getElementById('adminPanel').classList.add('hidden');
         }
@@ -398,7 +576,9 @@
             tbody.innerHTML = data.map((row, index) => `
                 <tr class="border-b">
                     <td class="px-4 py-2">
-                        <img src="${row.imageUrl || '/api/placeholder/50/50'}" alt="หลักฐาน" class="w-12 h-12 object-cover rounded">
+                        <button onclick="openImageInNewTab('${row.imageUrl}')" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg text-sm transition-colors">
+                            <i class="fas fa-eye mr-1"></i>ดูหลักฐานการชำระเงิน
+                        </button>
                     </td>
                     <td class="px-4 py-2">${parseFloat(row.amount).toLocaleString()} บาท</td>
                     <td class="px-4 py-2">${row.datetime}</td>
@@ -408,11 +588,13 @@
                         </span>
                     </td>
                     <td class="px-4 py-2">
-                        <div class="flex space-x-2">
-                            <select onchange="updateStatus(${index}, this.value)" class="bg-blue-500 text-white px-3 py-1 rounded text-sm border-none">
-                                <option value="รอการอนุมัติ" ${row.status === 'รอการอนุมัติ' ? 'selected' : ''}>รอการอนุมัติ</option>
-                                <option value="อนุมัติแล้ว" ${row.status === 'อนุมัติแล้ว' ? 'selected' : ''}>อนุมัติแล้ว</option>
-                            </select>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="updateStatusQuick(${index}, 'รอการอนุมัติ')" class="px-3 py-1 rounded text-sm transition-colors ${row.status === 'รอการอนุมัติ' ? 'bg-red-500 text-white' : 'bg-red-100 text-red-800 hover:bg-red-200'}">
+                                รอการอนุมัติ
+                            </button>
+                            <button onclick="updateStatusQuick(${index}, 'อนุมัติแล้ว')" class="px-3 py-1 rounded text-sm transition-colors ${row.status === 'อนุมัติแล้ว' ? 'bg-green-500 text-white' : 'bg-green-100 text-green-800 hover:bg-green-200'}">
+                                อนุมัติแล้ว
+                            </button>
                             <button onclick="editAmount(${index})" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm">แก้ไข</button>
                             <button onclick="deleteRecord(${index})" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">ลบ</button>
                         </div>
@@ -439,6 +621,35 @@
                 }
             } catch (error) {
                 console.error('Error updating status:', error);
+            }
+        }
+
+        async function updateStatusQuick(index, newStatus) {
+            // Update UI immediately for better UX
+            allData[index].status = newStatus;
+            updateAdminTable(allData);
+            updateUI(allData);
+            
+            try {
+                const formData = new URLSearchParams();
+                formData.append('action', 'updateStatus');
+                formData.append('rowIndex', index + 2); // +2 because sheet starts from row 2
+                formData.append('status', newStatus);
+
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+                if (!result.success) {
+                    // If failed, reload data to get correct state
+                    loadData();
+                }
+            } catch (error) {
+                console.error('Error updating status:', error);
+                // If failed, reload data to get correct state
+                loadData();
             }
         }
 
@@ -469,8 +680,14 @@
         }
 
         async function deleteRecord(index) {
-            if (confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')) {
+            const row = allData[index];
+            if (confirm(`คุณต้องการลบข้อมูลนี้หรือไม่?\n\nจำนวนเงิน: ${parseFloat(row.amount).toLocaleString()} บาท\nวันที่: ${row.datetime}\nสถานะ: ${row.status}`)) {
                 try {
+                    // Remove from local array immediately for better UX
+                    const deletedItem = allData.splice(index, 1)[0];
+                    updateAdminTable(allData);
+                    updateUI(allData);
+                    
                     const formData = new URLSearchParams();
                     formData.append('action', 'deleteRecord');
                     formData.append('rowIndex', index + 2);
@@ -482,10 +699,20 @@
 
                     const result = await response.json();
                     if (result.success) {
+                        // Successfully deleted from server, reload to ensure consistency
                         loadData();
+                    } else {
+                        // If deletion failed, restore the item
+                        allData.splice(index, 0, deletedItem);
+                        updateAdminTable(allData);
+                        updateUI(allData);
+                        showError('เกิดข้อผิดพลาดในการลบข้อมูล');
                     }
                 } catch (error) {
                     console.error('Error deleting record:', error);
+                    // Reload data to ensure consistency
+                    loadData();
+                    showError('เกิดข้อผิดพลาดในการลบข้อมูล');
                 }
             }
         }
@@ -507,6 +734,69 @@
         function hideErrorModal() {
             document.getElementById('errorModal').classList.add('hidden');
         }
+
+        // Image modal functions
+        function showImageModal(imageUrl) {
+            if (imageUrl && imageUrl !== '/api/placeholder/60/60') {
+                document.getElementById('modalImage').src = imageUrl;
+                document.getElementById('imageModal').classList.remove('hidden');
+            } else {
+                showError('ไม่พบหลักฐานการชำระเงิน');
+            }
+        }
+
+        function hideImageModal() {
+            document.getElementById('imageModal').classList.add('hidden');
+        }
+
+        // Open image in new tab
+        function openImageInNewTab(imageUrl) {
+            if (imageUrl && imageUrl !== '/api/placeholder/60/60') {
+                window.open(imageUrl, '_blank');
+            } else {
+                showError('ไม่พบหลักฐานการชำระเงิน');
+            }
+        }
+
+        // Pagination functions
+        function changePage(page) {
+            const totalPages = Math.ceil(allData.length / itemsPerPage);
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                updatePaymentHistory(allData);
+            }
+        }
+
+        // Show main page function
+        function showMainPage() {
+            document.getElementById('adminPanel').classList.add('hidden');
+            document.getElementById('mainContent').classList.remove('hidden');
+        }
+
+        // Back to admin function
+        function backToAdmin() {
+            // Switch back to admin panel from main page
+            document.getElementById('mainContent').classList.add('hidden');
+            document.getElementById('adminPanel').classList.remove('hidden');
+        }
+
+        // Theme toggle function
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (body.classList.contains('dark')) {
+                // Switch to light theme
+                body.classList.remove('dark');
+                themeIcon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            } else {
+                // Switch to dark theme
+                body.classList.add('dark');
+                themeIcon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96eccf16c2298f82',t:'MTc1NTEzNjMwNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96ee199e46133dc5',t:'MTc1NTE0OTg0NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
