@@ -121,9 +121,13 @@
         <!-- Card 1: Loan Summary -->
         <div class="bg-white rounded-2xl p-6 mb-6 card-shadow">
             <div class="text-center mb-6">
-                <div class="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-house-chimney text-blue-600 text-3xl"></i>
+                <div class="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 relative overflow-hidden cursor-pointer" onclick="changeProfileImage()">
+                    <img id="profileImage" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'%3E%3Cpath d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/%3E%3C/svg%3E" alt="รูปโปรไฟล์" class="w-full h-full object-cover rounded-full">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-200 rounded-full flex items-center justify-center">
+                        <i class="fas fa-camera text-white opacity-0 hover:opacity-100 transition-opacity duration-200"></i>
+                    </div>
                 </div>
+                <input type="file" id="profileImageInput" accept="image/*" class="hidden">
                 <h2 class="text-2xl font-bold text-gray-800 mb-2">สินเชื่อเงินกู้</h2>
                 <p class="text-3xl font-bold text-blue-600">1,000,000 บาท</p>
             </div>
@@ -323,6 +327,12 @@
                 document.getElementById('themeIcon').className = 'fas fa-sun';
             }
             
+            // Load saved profile image
+            const savedProfileImage = localStorage.getItem('profileImage');
+            if (savedProfileImage) {
+                document.getElementById('profileImage').src = savedProfileImage;
+            }
+            
             loadData();
             
             // Image preview
@@ -333,6 +343,20 @@
                     reader.onload = function(e) {
                         document.getElementById('previewImg').src = e.target.result;
                         document.getElementById('imagePreview').classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Profile image change
+            document.getElementById('profileImageInput').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const imageData = e.target.result;
+                        document.getElementById('profileImage').src = imageData;
+                        localStorage.setItem('profileImage', imageData);
                     };
                     reader.readAsDataURL(file);
                 }
@@ -797,6 +821,11 @@
                 localStorage.setItem('theme', 'dark');
             }
         }
+
+        // Change profile image function
+        function changeProfileImage() {
+            document.getElementById('profileImageInput').click();
+        }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96ee199e46133dc5',t:'MTc1NTE0OTg0NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96ee307777c087e7',t:'MTc1NTE1MDc4MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
