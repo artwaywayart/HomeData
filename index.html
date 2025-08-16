@@ -44,6 +44,16 @@
         .theme-cyan {
             background: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%);
         }
+        
+        /* Inactive button styles */
+        .btn-inactive {
+            opacity: 0.4;
+            transition: opacity 0.3s ease;
+        }
+        
+        .btn-inactive:hover {
+            opacity: 0.7;
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
@@ -63,6 +73,9 @@
         <div id="adminButtons" class="hidden flex space-x-2">
             <button onclick="backToAdmin()" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg text-sm transition-colors">
                 <i class="fas fa-arrow-left"></i>
+            </button>
+            <button onclick="showMainPage()" class="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded-lg text-sm transition-colors">
+                <i class="fas fa-home"></i>
             </button>
             <button onclick="logout()" class="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg text-sm transition-colors">
                 <i class="fas fa-sign-out-alt"></i>
@@ -136,9 +149,6 @@
         <div class="bg-white rounded-2xl p-6 card-shadow">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold text-gray-800">หน้าจัดการข้อมูล (แอดมิน)</h2>
-                <button onclick="showMainPage()" class="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded-lg text-sm transition-colors">
-                    <i class="fas fa-home"></i>
-                </button>
             </div>
             <div id="adminData" class="overflow-x-auto">
                 <table class="w-full table-auto">
@@ -402,6 +412,9 @@
             if (savedProfileImage) {
                 document.getElementById('profileImage').src = savedProfileImage;
             }
+            
+            // Initialize button fade system
+            initializeButtonFade();
             
             loadData();
             
@@ -740,10 +753,11 @@
         }
 
         async function updateStatusQuick(index, newStatus) {
-            // Update UI immediately for better UX
-            allData[index].status = newStatus;
-            updateAdminTable(allData);
-            updateUI(allData);
+            // Show loading state
+            const selectElement = event.target;
+            const originalValue = selectElement.value;
+            selectElement.disabled = true;
+            selectElement.style.opacity = '0.6';
             
             try {
                 const formData = new URLSearchParams();
@@ -757,14 +771,30 @@
                 });
 
                 const result = await response.json();
-                if (!result.success) {
-                    // If failed, reload data to get correct state
-                    loadData();
+                if (result.success) {
+                    // Update local data and UI
+                    allData[index].status = newStatus;
+                    updateAdminTable(allData);
+                    updateUI(allData);
+                    
+                    // Show success feedback
+                    if (newStatus === 'อนุมัติแล้ว') {
+                        showSuccessMessage('อนุมัติรายการสำเร็จ!');
+                    }
+                } else {
+                    // Revert selection if failed
+                    selectElement.value = originalValue;
+                    showError('เกิดข้อผิดพลาดในการอัปเดตสถานะ');
                 }
             } catch (error) {
                 console.error('Error updating status:', error);
-                // If failed, reload data to get correct state
-                loadData();
+                // Revert selection if failed
+                selectElement.value = originalValue;
+                showError('เกิดข้อผิดพลาดในการเชื่อมต่อ');
+            } finally {
+                // Reset loading state
+                selectElement.disabled = false;
+                selectElement.style.opacity = '1';
             }
         }
 
@@ -848,6 +878,33 @@
 
         function hideErrorModal() {
             document.getElementById('errorModal').classList.add('hidden');
+        }
+
+        function showSuccessMessage(message) {
+            // Create a temporary success notification
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-20 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300';
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+            
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
         }
 
         // Image modal functions
@@ -1003,6 +1060,61 @@
                     break;
             }
         }
+
+        // Button fade system
+        function initializeButtonFade() {
+            const themeBtn = document.getElementById('themeToggle');
+            const loginBtn = document.getElementById('loginBtn');
+            let themeInactiveTimer, loginInactiveTimer;
+            
+            // Make buttons inactive initially
+            themeBtn.classList.add('btn-inactive');
+            if (!isAdmin) {
+                loginBtn.classList.add('btn-inactive');
+            }
+            
+            // Theme button interactions
+            themeBtn.addEventListener('mouseenter', () => {
+                clearTimeout(themeInactiveTimer);
+                themeBtn.classList.remove('btn-inactive');
+            });
+            
+            themeBtn.addEventListener('mouseleave', () => {
+                themeInactiveTimer = setTimeout(() => {
+                    themeBtn.classList.add('btn-inactive');
+                }, 2000);
+            });
+            
+            themeBtn.addEventListener('click', () => {
+                clearTimeout(themeInactiveTimer);
+                themeBtn.classList.remove('btn-inactive');
+                themeInactiveTimer = setTimeout(() => {
+                    themeBtn.classList.add('btn-inactive');
+                }, 3000);
+            });
+            
+            // Login button interactions (only if not admin)
+            if (!isAdmin) {
+                loginBtn.addEventListener('mouseenter', () => {
+                    clearTimeout(loginInactiveTimer);
+                    loginBtn.classList.remove('btn-inactive');
+                });
+                
+                loginBtn.addEventListener('mouseleave', () => {
+                    loginInactiveTimer = setTimeout(() => {
+                        loginBtn.classList.add('btn-inactive');
+                    }, 2000);
+                });
+                
+                loginBtn.addEventListener('click', () => {
+                    clearTimeout(loginInactiveTimer);
+                    loginBtn.classList.remove('btn-inactive');
+                    loginInactiveTimer = setTimeout(() => {
+                        loginBtn.classList.add('btn-inactive');
+                    }, 3000);
+                });
+            }
+        }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96ff03f307479d17',t:'MTc1NTMyNzIxNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9700236ea273fdff',t:'MTc1NTMzODk5MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
