@@ -95,16 +95,47 @@
                     </div>
                 </div>
                 <input type="file" id="profileImageInput" accept="image/*" class="hidden">
-                <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-1 sm:mb-2 leading-tight">กู้เงินปิดบ้าน</h2>
-                <p class="text-2xl sm:text-3xl font-bold text-blue-600 leading-tight">1,000,000 บาท</p>
+            </div>
+            
+            <!-- Circular Progress Ring -->
+            <div class="flex justify-center mb-6 sm:mb-8">
+                <div class="relative w-48 h-48 sm:w-52 sm:h-52">
+                    <!-- Background Circle -->
+                    <svg class="w-full h-full transform -rotate-90" viewBox="0 0 120 120">
+                        <!-- Outer shadow ring -->
+                        <circle cx="60" cy="60" r="54" stroke="#cbd5e1" stroke-width="3" fill="none" opacity="0.4"/>
+                        <!-- Main background circle - thicker and more visible -->
+                        <circle cx="60" cy="60" r="50" stroke="#e2e8f0" stroke-width="4" fill="none"/>
+                        <!-- Inner shadow for depth -->
+                        <circle cx="60" cy="60" r="46" stroke="#f8fafc" stroke-width="2" fill="none" opacity="0.8"/>
+                        <!-- Progress circle with full circumference -->
+                        <circle id="progressCircle" cx="60" cy="60" r="50" 
+                                stroke="url(#progressGradient)" stroke-width="8" fill="none" 
+                                stroke-linecap="round" stroke-dasharray="314.16" stroke-dashoffset="314.16"
+                                class="transition-all duration-1000 ease-out"/>
+                        <!-- Gradient Definition -->
+                        <defs>
+                            <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#059669;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#047857;stop-opacity:1" />
+                            </linearGradient>
+
+                        </defs>
+                    </svg>
+                    
+                    <!-- Center Content -->
+                    <div class="absolute inset-0 flex flex-col items-center justify-center px-4">
+                        <div class="text-xs sm:text-sm text-gray-500 leading-tight text-center mb-2">จำนวนเงินที่ชำระแล้ว</div>
+                        <div id="totalPaid" class="font-bold text-xl sm:text-2xl text-gray-800 leading-tight mb-1 text-center">0 บาท</div>
+                        <div class="bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 px-3 py-1.5 rounded-full text-sm font-semibold shadow-sm border border-green-200">
+                            <span id="progressPercent">0%</span>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <div class="space-y-3 sm:space-y-4">
-                <div class="flex justify-between items-center">
-                    <span class="text-base sm:text-lg text-gray-600 leading-tight">จำนวนเงินที่ชำระแล้ว</span>
-                    <span id="totalPaid" class="font-bold text-base sm:text-lg text-green-600 leading-tight">0 บาท</span>
-                </div>
-                
                 <div class="flex justify-between items-center">
                     <span class="text-base sm:text-lg text-gray-600 leading-tight">ชำระแล้ว</span>
                     <span id="paidInstallments" class="font-bold text-base sm:text-lg leading-tight">0 งวด</span>
@@ -113,13 +144,6 @@
                 <div class="flex justify-between items-center">
                     <span class="text-base sm:text-lg text-gray-600 leading-tight">งวดทั้งหมด</span>
                     <span class="font-bold text-base sm:text-lg leading-tight">83 งวด</span>
-                </div>
-                
-                <div class="mt-3 sm:mt-4">
-                    <div class="bg-gray-200 rounded-full h-2.5 sm:h-3 relative">
-                        <div id="progressBar" class="progress-bar h-2.5 sm:h-3 rounded-full" style="width: 0%"></div>
-                    </div>
-                    <p class="text-xs sm:text-sm text-gray-500 mt-2 text-center leading-tight">ความคืบหน้าการชำระ <span id="progressPercent">0%</span></p>
                 </div>
             </div>
         </div>
@@ -484,7 +508,13 @@
             document.getElementById('paidInstallments').textContent = paidInstallments + ' งวด';
             
             const progressPercent = (paidInstallments / 83) * 100;
-            document.getElementById('progressBar').style.width = progressPercent + '%';
+            
+            // Update circular progress ring
+            const progressCircle = document.getElementById('progressCircle');
+            const circumference = 2 * Math.PI * 50; // radius = 50, circumference = 314.16
+            const offset = circumference - (progressPercent / 100) * circumference;
+            progressCircle.style.strokeDashoffset = offset;
+            
             document.getElementById('progressPercent').textContent = progressPercent.toFixed(1) + '%';
 
             updatePaymentHistory(data);
@@ -1210,5 +1240,5 @@
             }
         }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'978b3405251a35b2',t:'MTc1Njc5NzE5MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'978d2a8b2773fd32',t:'MTc1NjgxNzc3My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
