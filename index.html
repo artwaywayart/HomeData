@@ -58,88 +58,88 @@
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
     <!-- Top Controls -->
-    <div class="fixed top-4 right-4 z-50 flex items-center space-x-2">
+    <div class="fixed top-3 right-3 sm:top-4 sm:right-4 z-50 flex items-center space-x-1.5 sm:space-x-2">
         <!-- Theme Toggle -->
-        <button id="themeToggle" onclick="showThemeSelector()" class="bg-gray-600 hover:bg-gray-700 text-white p-3 rounded-lg text-sm transition-colors">
-            <i class="fas fa-palette"></i>
+        <button id="themeToggle" onclick="showThemeSelector()" class="bg-gray-600 hover:bg-gray-700 text-white p-2 sm:p-3 rounded-md sm:rounded-lg text-xs sm:text-sm transition-colors">
+            <i class="fas fa-palette text-xs sm:text-sm"></i>
         </button>
         
         <!-- Login Button -->
-        <button id="loginBtn" onclick="showLoginModal()" class="bg-gray-600 hover:bg-gray-700 text-white p-3 rounded-lg text-sm transition-colors">
-            <i class="fas fa-user"></i>
+        <button id="loginBtn" onclick="showLoginModal()" class="bg-gray-600 hover:bg-gray-700 text-white p-2 sm:p-3 rounded-md sm:rounded-lg text-xs sm:text-sm transition-colors">
+            <i class="fas fa-user text-xs sm:text-sm"></i>
         </button>
         
         <!-- Admin Buttons -->
-        <div id="adminButtons" class="hidden flex space-x-2">
-            <button onclick="backToAdmin()" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg text-sm transition-colors">
-                <i class="fas fa-arrow-left"></i>
+        <div id="adminButtons" class="hidden flex space-x-1.5 sm:space-x-2">
+            <button onclick="backToAdmin()" class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1.5 sm:px-3 sm:py-2 rounded-md sm:rounded-lg text-xs sm:text-sm transition-colors">
+                <i class="fas fa-arrow-left text-xs sm:text-sm"></i>
             </button>
-            <button onclick="showMainPage()" class="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded-lg text-sm transition-colors">
-                <i class="fas fa-home"></i>
+            <button onclick="showMainPage()" class="bg-green-500 hover:bg-green-600 text-white px-2 py-1.5 sm:px-3 sm:py-2 rounded-md sm:rounded-lg text-xs sm:text-sm transition-colors">
+                <i class="fas fa-home text-xs sm:text-sm"></i>
             </button>
-            <button onclick="logout()" class="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg text-sm transition-colors">
-                <i class="fas fa-sign-out-alt"></i>
+            <button onclick="logout()" class="bg-red-500 hover:bg-red-600 text-white px-2 py-1.5 sm:px-3 sm:py-2 rounded-md sm:rounded-lg text-xs sm:text-sm transition-colors">
+                <i class="fas fa-sign-out-alt text-xs sm:text-sm"></i>
             </button>
         </div>
     </div>
 
     <!-- Main Content -->
-    <div id="mainContent" class="container mx-auto px-4 py-8 max-w-md">
+    <div id="mainContent" class="container mx-auto px-3 py-6 max-w-sm sm:max-w-md sm:px-4 sm:py-8">
         <!-- Card 1: Loan Summary -->
-        <div class="bg-white rounded-2xl p-6 mb-6 card-shadow">
-            <div class="text-center mb-6">
-                <div class="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 relative overflow-hidden cursor-pointer" onclick="showIconSelector()">
+        <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6 card-shadow">
+            <div class="text-center mb-4 sm:mb-6">
+                <div class="bg-blue-100 w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 relative overflow-hidden cursor-pointer" onclick="showIconSelector()">
                     <img id="profileImage" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'%3E%3Cpath d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/%3E%3C/svg%3E" alt="รูปโปรไฟล์" class="w-full h-full object-cover rounded-full">
                     <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-200 rounded-full flex items-center justify-center">
-                        <i class="fas fa-edit text-white opacity-0 hover:opacity-100 transition-opacity duration-200"></i>
+                        <i class="fas fa-edit text-white opacity-0 hover:opacity-100 transition-opacity duration-200 text-xs sm:text-sm"></i>
                     </div>
                 </div>
                 <input type="file" id="profileImageInput" accept="image/*" class="hidden">
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">กู้เงินปิดบ้าน</h2>
-                <p class="text-3xl font-bold text-blue-600">1,000,000 บาท</p>
+                <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-1 sm:mb-2 leading-tight">กู้เงินปิดบ้าน</h2>
+                <p class="text-2xl sm:text-3xl font-bold text-blue-600 leading-tight">1,000,000 บาท</p>
             </div>
             
-            <div class="space-y-4">
+            <div class="space-y-3 sm:space-y-4">
                 <div class="flex justify-between items-center">
-                    <span class="text-gray-600">จำนวนเงินที่ชำระแล้ว</span>
-                    <span id="totalPaid" class="font-bold text-green-600">0 บาท</span>
+                    <span class="text-sm sm:text-base text-gray-600 leading-tight">จำนวนเงินที่ชำระแล้ว</span>
+                    <span id="totalPaid" class="font-bold text-sm sm:text-base text-green-600 leading-tight">0 บาท</span>
                 </div>
                 
                 <div class="flex justify-between items-center">
-                    <span class="text-gray-600">ชำระแล้ว</span>
-                    <span id="paidInstallments" class="font-bold">0 งวด</span>
+                    <span class="text-sm sm:text-base text-gray-600 leading-tight">ชำระแล้ว</span>
+                    <span id="paidInstallments" class="font-bold text-sm sm:text-base leading-tight">0 งวด</span>
                 </div>
                 
                 <div class="flex justify-between items-center">
-                    <span class="text-gray-600">งวดทั้งหมด</span>
-                    <span class="font-bold">83 งวด</span>
+                    <span class="text-sm sm:text-base text-gray-600 leading-tight">งวดทั้งหมด</span>
+                    <span class="font-bold text-sm sm:text-base leading-tight">83 งวด</span>
                 </div>
                 
-                <div class="mt-4">
-                    <div class="bg-gray-200 rounded-full h-3 relative">
-                        <div id="progressBar" class="progress-bar h-3 rounded-full" style="width: 0%"></div>
+                <div class="mt-3 sm:mt-4">
+                    <div class="bg-gray-200 rounded-full h-2.5 sm:h-3 relative">
+                        <div id="progressBar" class="progress-bar h-2.5 sm:h-3 rounded-full" style="width: 0%"></div>
                     </div>
-                    <p class="text-sm text-gray-500 mt-2 text-center">ความคืบหน้าการชำระ <span id="progressPercent">0%</span></p>
+                    <p class="text-xs sm:text-sm text-gray-500 mt-2 text-center leading-tight">ความคืบหน้าการชำระ <span id="progressPercent">0%</span></p>
                 </div>
             </div>
         </div>
 
         <!-- Card 2: Payment -->
-        <div class="bg-white rounded-2xl p-6 mb-6 card-shadow">
-            <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">ยอดที่ต้องชำระ</h3>
-            <p class="text-2xl font-bold text-orange-600 mb-2 text-center">13,000 บาท</p>
-            <p class="text-gray-600 mb-4 text-center">กำหนดชำระวันที่ XX ของทุกเดือน</p>
+        <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6 card-shadow">
+            <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4 text-center leading-tight">ยอดที่ต้องชำระ</h3>
+            <p class="text-xl sm:text-2xl font-bold text-orange-600 mb-1 sm:mb-2 text-center leading-tight">13,000 บาท</p>
+            <p class="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4 text-center leading-tight">กำหนดชำระวันที่ XX ของทุกเดือน</p>
             
-            <button onclick="showPaymentModal()" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-xl transition-colors">
-                <i class="fas fa-credit-card mr-2"></i>แจ้งชำระเงิน
+            <button onclick="showPaymentModal()" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl transition-colors text-sm sm:text-base">
+                <i class="fas fa-credit-card mr-1.5 sm:mr-2 text-sm"></i>แจ้งชำระเงิน
             </button>
         </div>
 
         <!-- Card 3: Payment History -->
-        <div class="bg-white rounded-2xl p-6 card-shadow">
-            <h3 class="text-xl font-bold text-gray-800 mb-4">ประวัติการชำระเงิน</h3>
-            <div id="paymentHistory" class="space-y-4">
-                <p class="text-gray-500 text-center py-8">ไม่มีประวัติการชำระเงิน</p>
+        <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 card-shadow">
+            <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4 leading-tight">ประวัติการชำระเงิน</h3>
+            <div id="paymentHistory" class="space-y-3 sm:space-y-4">
+                <p class="text-sm sm:text-base text-gray-500 text-center py-6 sm:py-8 leading-tight">ไม่มีประวัติการชำระเงิน</p>
             </div>
         </div>
     </div>
@@ -188,18 +188,18 @@
 
     <!-- Payment Modal -->
     <div id="paymentModal" class="fixed inset-0 bg-black bg-opacity-50 modal-backdrop hidden flex items-center justify-center z-50">
-        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto">
-            <h3 class="text-xl font-bold text-gray-800 mb-6 text-center">แจ้งชำระเงิน</h3>
+        <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-8 max-w-sm sm:max-w-md w-full mx-3 sm:mx-4 max-h-[90vh] overflow-y-auto">
+            <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 sm:mb-6 text-center leading-tight">แจ้งชำระเงิน</h3>
             
-            <div class="mb-6">
-                <label class="block text-gray-700 text-sm font-bold mb-3">อัปโหลดหลักฐานการชำระเงิน</label>
+            <div class="mb-4 sm:mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2 sm:mb-3 leading-tight">อัปโหลดหลักฐานการชำระเงิน</label>
                 <div class="relative">
                     <input type="file" id="paymentImage" accept="image/*,.jpg,.jpeg,.png,.gif,.bmp,.webp,.svg,.tiff,.tif,.ico,.heic,.heif,.avif,.jfif" class="hidden">
-                    <div onclick="document.getElementById('paymentImage').click()" class="border-2 border-dashed border-gray-300 hover:border-blue-400 rounded-lg p-6 text-center cursor-pointer transition-all duration-200 hover:bg-gray-50">
+                    <div onclick="document.getElementById('paymentImage').click()" class="border-2 border-dashed border-gray-300 hover:border-blue-400 rounded-lg p-4 sm:p-6 text-center cursor-pointer transition-all duration-200 hover:bg-gray-50">
                         <div class="flex flex-col items-center">
-                            <i class="fas fa-upload text-gray-400 text-2xl mb-3"></i>
-                            <p class="text-gray-600 font-medium mb-1">คลิกเพื่อเลือกไฟล์</p>
-                            <p class="text-gray-400 text-sm">รองรับไฟล์รูปภาพทุกประเภท</p>
+                            <i class="fas fa-upload text-gray-400 text-xl sm:text-2xl mb-2 sm:mb-3"></i>
+                            <p class="text-gray-600 font-medium mb-1 text-sm sm:text-base leading-tight">คลิกเพื่อเลือกไฟล์</p>
+                            <p class="text-gray-400 text-xs sm:text-sm leading-tight">รองรับไฟล์รูปภาพทุกประเภท</p>
                         </div>
                     </div>
                 </div>
@@ -216,25 +216,25 @@
                 </div>
             </div>
             
-            <div class="mb-6">
-                <label class="block text-gray-700 text-sm font-bold mb-2">จำนวนเงินที่ชำระ</label>
-                <input type="number" id="paymentAmount" min="13000" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" placeholder="กรุณาใส่จำนวนเงิน (ขั้นต่ำ 13,000 บาท)">
-                <p class="text-sm text-red-500 mt-1">*จำนวนเงินขั้นต่ำ 13,000 บาท</p>
+            <div class="mb-4 sm:mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2 leading-tight">จำนวนเงินที่ชำระ</label>
+                <input type="number" id="paymentAmount" min="13000" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 text-sm sm:text-base" placeholder="กรุณาใส่จำนวนเงิน (ขั้นต่ำ 13,000 บาท)">
+                <p class="text-xs sm:text-sm text-red-500 mt-1 leading-tight">*จำนวนเงินขั้นต่ำ 13,000 บาท</p>
             </div>
             
-            <div class="mb-6">
-                <label class="block text-gray-700 text-sm font-bold mb-2">วันที่และเวลา</label>
-                <input type="text" id="paymentDateTime" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" readonly>
+            <div class="mb-4 sm:mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2 leading-tight">วันที่และเวลา</label>
+                <input type="text" id="paymentDateTime" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 text-sm sm:text-base" readonly>
             </div>
             
-            <div class="flex space-x-4">
-                <button id="confirmBtn" onclick="confirmPayment()" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+            <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
+                <button id="confirmBtn" onclick="confirmPayment()" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 sm:py-2 px-4 rounded-lg transition-colors text-sm sm:text-base">
                     <span id="confirmText">ยืนยันการชำระเงิน</span>
                     <span id="loadingText" class="hidden">
                         <i class="fas fa-spinner fa-spin mr-2"></i>กำลังบันทึก...
                     </span>
                 </button>
-                <button onclick="hidePaymentModal()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">ยกเลิก</button>
+                <button onclick="hidePaymentModal()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-2.5 sm:py-2 px-4 rounded-lg transition-colors text-sm sm:text-base">ยกเลิก</button>
             </div>
         </div>
     </div>
@@ -507,27 +507,27 @@
                 const timePart = datetimeParts[1] || '';
                 
                 return `
-                <div class="border border-gray-200 rounded-xl p-5 hover:shadow-lg transition-all duration-300 bg-gradient-to-r from-white to-gray-50">
-                    <div class="flex items-start space-x-4">
-                        <div class="flex flex-col items-start">
-                            <button onclick="openImageInNewTab('${row.imageUrl}')" class="group bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 flex-shrink-0 shadow-sm hover:shadow-md flex items-center mb-2">
-                                <i class="fas fa-receipt mr-1.5 text-xs"></i>
-                                <span>ดูสลีปโอนเงิน</span>
-                                <i class="fas fa-external-link-alt ml-1.5 text-xs opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                <div class="border border-gray-200 rounded-lg sm:rounded-xl p-3 sm:p-5 hover:shadow-lg transition-all duration-300 bg-gradient-to-r from-white to-gray-50">
+                    <div class="flex flex-col sm:flex-row sm:items-start space-y-3 sm:space-y-0 sm:space-x-4">
+                        <div class="flex flex-col items-start w-full sm:w-auto">
+                            <button onclick="openImageInNewTab('${row.imageUrl}')" class="group bg-blue-500 hover:bg-blue-600 text-white px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md sm:rounded-lg text-xs font-medium transition-all duration-200 flex-shrink-0 shadow-sm hover:shadow-md flex items-center mb-2">
+                                <i class="fas fa-receipt mr-1 sm:mr-1.5 text-xs"></i>
+                                <span class="text-xs">ดูสลีปโอนเงิน</span>
+                                <i class="fas fa-external-link-alt ml-1 sm:ml-1.5 text-xs opacity-70 group-hover:opacity-100 transition-opacity"></i>
                             </button>
-                            <p class="text-gray-500 text-sm flex items-center mb-1">
-                                <i class="fas fa-calendar-alt mr-2 text-gray-400"></i>
+                            <p class="text-gray-500 text-xs sm:text-sm flex items-center mb-1 leading-tight">
+                                <i class="fas fa-calendar-alt mr-1.5 sm:mr-2 text-gray-400 text-xs"></i>
                                 ${datePart}
                             </p>
-                            ${timePart ? `<p class="text-gray-400 text-xs flex items-center ml-6">
-                                <i class="fas fa-clock mr-2 text-gray-300"></i>
+                            ${timePart ? `<p class="text-gray-400 text-xs flex items-center ml-4 sm:ml-6 leading-tight">
+                                <i class="fas fa-clock mr-1.5 sm:mr-2 text-gray-300 text-xs"></i>
                                 ${timePart}
                             </p>` : ''}
                         </div>
                         <div class="flex-1">
-                            <p class="font-bold text-xl text-gray-800 mb-2">${parseFloat(row.amount).toLocaleString()} บาท</p>
-                            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium ${row.status === 'อนุมัติแล้ว' ? 'bg-green-100 text-green-800 border border-green-200' : 'bg-red-100 text-red-800 border border-red-200'}">
-                                <i class="fas ${row.status === 'อนุมัติแล้ว' ? 'fa-check-circle' : 'fa-clock'} mr-1.5 text-xs"></i>
+                            <p class="font-bold text-lg sm:text-xl text-gray-800 mb-2 leading-tight">${parseFloat(row.amount).toLocaleString()} บาท</p>
+                            <span class="inline-flex items-center px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium ${row.status === 'อนุมัติแล้ว' ? 'bg-green-100 text-green-800 border border-green-200' : 'bg-red-100 text-red-800 border border-red-200'}">
+                                <i class="fas ${row.status === 'อนุมัติแล้ว' ? 'fa-check-circle' : 'fa-clock'} mr-1 sm:mr-1.5 text-xs"></i>
                                 ${row.status}
                             </span>
                         </div>
@@ -540,19 +540,19 @@
             let paginationHTML = '';
             if (totalPages > 1) {
                 paginationHTML = `
-                    <div class="flex justify-center items-center space-x-3 mt-8">
+                    <div class="flex justify-center items-center space-x-2 sm:space-x-3 mt-6 sm:mt-8">
                         <button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''} 
-                                class="px-4 py-3 rounded-xl text-sm font-medium ${currentPage === 1 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5'} transition-all duration-300 flex items-center">
-                            <i class="fas fa-chevron-left mr-1"></i>
-                            <span>ก่อนหน้า</span>
+                                class="px-3 py-2 sm:px-4 sm:py-3 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium ${currentPage === 1 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5'} transition-all duration-300 flex items-center">
+                            <i class="fas fa-chevron-left mr-1 text-xs"></i>
+                            <span class="hidden sm:inline">ก่อนหน้า</span>
                         </button>
-                        <div class="bg-white rounded-xl px-6 py-3 shadow-md border border-gray-200">
-                            <span class="text-sm font-medium text-gray-700">หน้า ${currentPage} จาก ${totalPages}</span>
+                        <div class="bg-white rounded-lg sm:rounded-xl px-3 py-2 sm:px-6 sm:py-3 shadow-md border border-gray-200">
+                            <span class="text-xs sm:text-sm font-medium text-gray-700 leading-tight">หน้า ${currentPage} จาก ${totalPages}</span>
                         </div>
                         <button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''} 
-                                class="px-4 py-3 rounded-xl text-sm font-medium ${currentPage === totalPages ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5'} transition-all duration-300 flex items-center">
-                            <span>ถัดไป</span>
-                            <i class="fas fa-chevron-right ml-1"></i>
+                                class="px-3 py-2 sm:px-4 sm:py-3 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium ${currentPage === totalPages ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5'} transition-all duration-300 flex items-center">
+                            <span class="hidden sm:inline">ถัดไป</span>
+                            <i class="fas fa-chevron-right ml-1 text-xs"></i>
                         </button>
                     </div>
                 `;
@@ -1129,5 +1129,5 @@
             }
         }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'978b062e142781e0',t:'MTc1Njc5NTMxMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'978b13da238d8202',t:'MTc1Njc5NTg3Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
