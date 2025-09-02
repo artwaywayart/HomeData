@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบกู้ผ่อนบ้าน</title>
+    <title>แอปผ่อนบ้าน</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -500,20 +500,32 @@
             const endIndex = startIndex + itemsPerPage;
             const currentData = data.slice(startIndex, endIndex);
 
-            const historyHTML = currentData.map((row, index) => `
+            const historyHTML = currentData.map((row, index) => {
+                // Split datetime into date and time parts
+                const datetimeParts = row.datetime.split(' เวลา ');
+                const datePart = datetimeParts[0] || row.datetime;
+                const timePart = datetimeParts[1] || '';
+                
+                return `
                 <div class="border border-gray-200 rounded-xl p-5 hover:shadow-lg transition-all duration-300 bg-gradient-to-r from-white to-gray-50">
                     <div class="flex items-start space-x-4">
-                        <button onclick="openImageInNewTab('${row.imageUrl}')" class="group bg-blue-500 hover:bg-blue-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 flex-shrink-0 shadow-sm hover:shadow-md flex items-center">
-                            <i class="fas fa-receipt mr-2 text-sm"></i>
-                            <span>ดูสลีปโอนเงิน</span>
-                            <i class="fas fa-external-link-alt ml-2 text-xs opacity-70 group-hover:opacity-100 transition-opacity"></i>
-                        </button>
+                        <div class="flex flex-col items-start">
+                            <button onclick="openImageInNewTab('${row.imageUrl}')" class="group bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 flex-shrink-0 shadow-sm hover:shadow-md flex items-center mb-2">
+                                <i class="fas fa-receipt mr-1.5 text-xs"></i>
+                                <span>ดูสลีปโอนเงิน</span>
+                                <i class="fas fa-external-link-alt ml-1.5 text-xs opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                            </button>
+                            <p class="text-gray-500 text-sm flex items-center mb-1">
+                                <i class="fas fa-calendar-alt mr-2 text-gray-400"></i>
+                                ${datePart}
+                            </p>
+                            ${timePart ? `<p class="text-gray-400 text-xs flex items-center ml-6">
+                                <i class="fas fa-clock mr-2 text-gray-300"></i>
+                                ${timePart}
+                            </p>` : ''}
+                        </div>
                         <div class="flex-1">
                             <p class="font-bold text-xl text-gray-800 mb-2">${parseFloat(row.amount).toLocaleString()} บาท</p>
-                            <p class="text-gray-500 text-sm mb-2 flex items-center">
-                                <i class="fas fa-calendar-alt mr-2 text-gray-400"></i>
-                                ${row.datetime}
-                            </p>
                             <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium ${row.status === 'อนุมัติแล้ว' ? 'bg-green-100 text-green-800 border border-green-200' : 'bg-red-100 text-red-800 border border-red-200'}">
                                 <i class="fas ${row.status === 'อนุมัติแล้ว' ? 'fa-check-circle' : 'fa-clock'} mr-1.5 text-xs"></i>
                                 ${row.status}
@@ -521,7 +533,8 @@
                         </div>
                     </div>
                 </div>
-            `).join('');
+                `;
+            }).join('');
 
             // Pagination controls
             let paginationHTML = '';
@@ -1116,5 +1129,5 @@
             }
         }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9710400737610517',t:'MTc1NTUwNzkzMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'978b062e142781e0',t:'MTc1Njc5NTMxMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
