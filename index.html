@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แอปผ่อนบ้าน</title>
+    <title>แอปกู้ผ่อนบ้าน</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -101,17 +101,17 @@
             
             <div class="space-y-3 sm:space-y-4">
                 <div class="flex justify-between items-center">
-                    <span class="text-sm sm:text-base text-gray-600 leading-tight">จำนวนเงินที่ชำระแล้ว</span>
+                    <span class="text-base sm:text-lg text-gray-600 leading-tight">จำนวนเงินที่ชำระแล้ว</span>
                     <span id="totalPaid" class="font-bold text-sm sm:text-base text-green-600 leading-tight">0 บาท</span>
                 </div>
                 
                 <div class="flex justify-between items-center">
-                    <span class="text-sm sm:text-base text-gray-600 leading-tight">ชำระแล้ว</span>
+                    <span class="text-base sm:text-lg text-gray-600 leading-tight">ชำระแล้ว</span>
                     <span id="paidInstallments" class="font-bold text-sm sm:text-base leading-tight">0 งวด</span>
                 </div>
                 
                 <div class="flex justify-between items-center">
-                    <span class="text-sm sm:text-base text-gray-600 leading-tight">งวดทั้งหมด</span>
+                    <span class="text-base sm:text-lg text-gray-600 leading-tight">งวดทั้งหมด</span>
                     <span class="font-bold text-sm sm:text-base leading-tight">83 งวด</span>
                 </div>
                 
@@ -145,12 +145,19 @@
     </div>
 
     <!-- Admin Panel -->
-    <div id="adminPanel" class="container mx-auto px-4 py-8 max-w-6xl hidden">
-        <div class="bg-white rounded-2xl p-6 card-shadow">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold text-gray-800">ตรวจสอบข้อมูล</h2>
+    <div id="adminPanel" class="container mx-auto px-3 py-6 max-w-sm sm:max-w-6xl sm:px-4 sm:py-8 hidden">
+        <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 card-shadow">
+            <div class="flex justify-between items-center mb-4 sm:mb-6">
+                <h2 class="text-xl sm:text-2xl font-bold text-gray-800">ตรวจสอบข้อมูล</h2>
             </div>
-            <div id="adminData" class="overflow-x-auto">
+            
+            <!-- Mobile View -->
+            <div id="adminDataMobile" class="block sm:hidden space-y-4">
+                <!-- Mobile cards will be inserted here -->
+            </div>
+            
+            <!-- Desktop View -->
+            <div id="adminData" class="hidden sm:block overflow-x-auto">
                 <table class="w-full table-auto">
                     <thead>
                         <tr class="bg-gray-50">
@@ -704,12 +711,15 @@
         // Admin functions
         function updateAdminTable(data) {
             const tbody = document.getElementById('adminTableBody');
+            const mobileContainer = document.getElementById('adminDataMobile');
             
             if (data.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="5" class="text-center py-8 text-gray-500">ไม่มีข้อมูล</td></tr>';
+                mobileContainer.innerHTML = '<div class="text-center py-8 text-gray-500">ไม่มีข้อมูล</div>';
                 return;
             }
 
+            // Desktop table view
             tbody.innerHTML = data.map((row, index) => `
                 <tr class="border-b">
                     <td class="px-4 py-2">
@@ -747,6 +757,72 @@
                     </td>
                 </tr>
             `).join('');
+
+            // Mobile card view
+            mobileContainer.innerHTML = data.map((row, index) => {
+                // Split datetime into date and time parts
+                const datetimeParts = row.datetime.split(' เวลา ');
+                const datePart = datetimeParts[0] || row.datetime;
+                const timePart = datetimeParts[1] || '';
+                
+                return `
+                <div class="border border-gray-200 rounded-lg p-4 bg-white shadow-sm">
+                    <!-- Header with amount and status -->
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="font-bold text-lg text-gray-800">${parseFloat(row.amount).toLocaleString()} บาท</div>
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${row.status === 'อนุมัติแล้ว' ? 'bg-green-100 text-green-800 border border-green-200' : 'bg-red-100 text-red-800 border border-red-200'}">
+                            <i class="fas ${row.status === 'อนุมัติแล้ว' ? 'fa-check-circle' : 'fa-clock'} mr-1 text-xs"></i>
+                            ${row.status}
+                        </span>
+                    </div>
+                    
+                    <!-- Date and time -->
+                    <div class="mb-3">
+                        <div class="text-gray-600 text-sm flex items-center mb-1">
+                            <i class="fas fa-calendar-alt mr-2 text-gray-400 text-xs"></i>
+                            ${datePart}
+                        </div>
+                        ${timePart ? `<div class="text-gray-500 text-xs flex items-center ml-5">
+                            <i class="fas fa-clock mr-2 text-gray-300 text-xs"></i>
+                            ${timePart}
+                        </div>` : ''}
+                    </div>
+                    
+                    <!-- Receipt button -->
+                    <div class="mb-4">
+                        <button onclick="openImageInNewTab('${row.imageUrl}')" class="w-full group bg-gray-600 hover:bg-gray-700 text-white py-2.5 px-4 rounded-lg text-sm font-medium transition-all duration-200 shadow-sm hover:shadow-md flex items-center justify-center">
+                            <i class="fas fa-receipt mr-2 text-xs"></i>
+                            <span>ดูสลีปโอนเงิน</span>
+                            <i class="fas fa-external-link-alt ml-2 text-xs opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Action buttons -->
+                    <div class="space-y-2">
+                        <!-- Status selector -->
+                        <div class="relative">
+                            <select onchange="updateStatusQuick(${index}, this.value)" class="w-full appearance-none bg-white border border-gray-300 rounded-lg px-4 py-2.5 pr-10 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 cursor-pointer ${row.status === 'อนุมัติแล้ว' ? 'text-green-700 bg-green-50 border-green-300' : 'text-red-700 bg-red-50 border-red-300'}">
+                                <option value="รอการอนุมัติ" ${row.status === 'รอการอนุมัติ' ? 'selected' : ''}>รอการอนุมัติ</option>
+                                <option value="อนุมัติแล้ว" ${row.status === 'อนุมัติแล้ว' ? 'selected' : ''}>อนุมัติแล้ว</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
+                                <i class="fas fa-chevron-down text-gray-400 text-xs"></i>
+                            </div>
+                        </div>
+                        
+                        <!-- Edit and Delete buttons -->
+                        <div class="flex space-x-2">
+                            <button onclick="editAmount(${index})" class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white py-2.5 px-4 rounded-lg text-sm font-medium transition-colors duration-200 flex items-center justify-center">
+                                <i class="fas fa-edit mr-2 text-xs"></i>แก้ไขจำนวน
+                            </button>
+                            <button onclick="deleteRecord(${index})" class="flex-1 bg-red-500 hover:bg-red-600 text-white py-2.5 px-4 rounded-lg text-sm font-medium transition-colors duration-200 flex items-center justify-center">
+                                <i class="fas fa-trash mr-2 text-xs"></i>ลบข้อมูล
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
         }
 
         async function updateStatus(index, newStatus) {
@@ -1134,5 +1210,5 @@
             }
         }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'978b1d5d530c8202',t:'MTc1Njc5NjI2Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'978b291797f2ce0a',t:'MTc1Njc5Njc0Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
