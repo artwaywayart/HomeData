@@ -45,6 +45,10 @@
             background: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%);
         }
         
+        .theme-darkblue {
+            background: linear-gradient(135deg, #0050f0 0%, #003bb8 100%);
+        }
+        
         /* Inactive button styles */
         .btn-inactive {
             opacity: 0.4;
@@ -185,11 +189,11 @@
                     <span class="font-bold text-lg sm:text-xl leading-tight">83 งวด</span>
                 </div>
                 
-                <!-- Progress Percentage -->
-                <div class="flex justify-center pt-3">
-                    <div class="bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 px-5 py-3 rounded-full text-base font-semibold shadow-sm border border-green-200">
-                        <span id="progressPercent">0%</span>
-                    </div>
+                <!-- Loan Information Link -->
+                <div class="text-center">
+                    <button onclick="showLoanDetailsModal()" class="text-gray-400 hover:text-gray-600 font-medium text-base sm:text-lg underline hover:no-underline transition-all duration-200 cursor-pointer">
+                        ข้อมูลสินเชื่อ
+                    </button>
                 </div>
             </div>
         </div>
@@ -461,17 +465,67 @@
                     <span class="text-sm font-medium text-orange-700">ธีมส้ม</span>
                 </button>
                 
-                <!-- Cyan Theme -->
-                <button onclick="changeTheme('cyan')" class="theme-preview bg-gradient-to-br from-cyan-50 to-teal-100 p-6 rounded-xl border-2 border-transparent hover:border-cyan-400 transition-all duration-200 flex flex-col items-center">
-                    <div class="w-12 h-12 bg-cyan-500 rounded-full mb-3 flex items-center justify-center">
-                        <i class="fas fa-water text-white"></i>
+                <!-- Dark Blue Theme -->
+                <button onclick="changeTheme('darkblue')" class="theme-preview bg-gradient-to-br from-slate-100 to-blue-200 p-6 rounded-xl border-2 border-transparent hover:border-slate-400 transition-all duration-200 flex flex-col items-center">
+                    <div class="w-12 h-12 bg-slate-700 rounded-full mb-3 flex items-center justify-center">
+                        <i class="fas fa-moon text-white"></i>
                     </div>
-                    <span class="text-sm font-medium text-cyan-700">ธีมฟ้า</span>
+                    <span class="text-sm font-medium text-slate-700">ธีมสีน้ำเงินเข้ม</span>
                 </button>
             </div>
             
             <div class="flex space-x-4">
                 <button onclick="hideThemeSelector()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">ปิด</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loan Details Modal -->
+    <div id="loanDetailsModal" class="fixed inset-0 bg-black bg-opacity-50 modal-backdrop hidden flex items-center justify-center z-50">
+        <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-8 max-w-sm sm:max-w-md w-full mx-3 sm:mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4 sm:mb-6">
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800">ข้อมูลสินเชื่อ</h3>
+                <button onclick="hideLoanDetailsModal()" class="bg-gray-500 hover:bg-gray-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-colors">
+                    <i class="fas fa-times text-sm"></i>
+                </button>
+            </div>
+            
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 sm:p-5 border border-blue-200">
+                <div class="space-y-3 sm:space-y-4 text-sm sm:text-base">
+                    <div class="flex justify-between items-center py-2 border-b border-blue-100">
+                        <span class="text-gray-700 font-medium">ยอดเงินกู้บ้าน</span>
+                        <span class="font-bold text-blue-700">1,000,000 บาท</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-blue-100">
+                        <span class="text-gray-700 font-medium">ยอดผ่อนชำระต่อเดือน</span>
+                        <span class="font-bold text-blue-700">13,000 บาท</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-blue-100">
+                        <span class="text-gray-700 font-medium">ระยะเวลาผ่อน</span>
+                        <span class="font-bold text-blue-700">83 เดือน/งวด</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-blue-100">
+                        <span class="text-gray-700 font-medium">อัตราดอกเบี้ย</span>
+                        <span class="font-bold text-blue-700">2% ลดต้นลดดอก</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-blue-100">
+                        <span class="text-gray-700 font-medium">ยอดดอกเบี้ยทั้งสิ้น</span>
+                        <span class="font-bold text-orange-600">71,063 บาท</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 bg-red-50 rounded-lg px-3 border border-red-200">
+                        <span class="text-gray-700 font-bold">ตกลงจะจ่ายดอกเบี้ยให้ทั้งสิ้น</span>
+                        <span class="font-bold text-red-600 text-lg">80,000 บาท</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4 sm:mt-6 space-y-3">
+                <button onclick="openPaymentSchedule()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 sm:py-3 px-4 rounded-lg sm:rounded-xl transition-colors text-sm sm:text-base">
+                    <i class="fas fa-table mr-2"></i>ดูตารางผ่อน
+                </button>
+                <button onclick="hideLoanDetailsModal()" class="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-2.5 sm:py-3 px-4 rounded-lg sm:rounded-xl transition-colors text-sm sm:text-base">
+                    ปิด
+                </button>
             </div>
         </div>
     </div>
@@ -606,8 +660,6 @@
             const circumference = 2 * Math.PI * 50; // radius = 50, circumference = 314.16
             const offset = circumference - (progressPercent / 100) * circumference;
             progressCircle.style.strokeDashoffset = offset;
-            
-            document.getElementById('progressPercent').textContent = progressPercent.toFixed(1) + '%';
 
             updatePaymentHistory(data);
             if (isAdmin) {
@@ -1252,7 +1304,7 @@
             const body = document.body;
             
             // Remove all theme classes
-            body.classList.remove('theme-blue', 'theme-green', 'theme-purple', 'theme-pink', 'theme-orange', 'theme-cyan');
+            body.classList.remove('theme-blue', 'theme-green', 'theme-purple', 'theme-pink', 'theme-orange', 'theme-cyan', 'theme-darkblue');
             
             // Apply new theme
             body.classList.add(`theme-${themeName}`);
@@ -1276,6 +1328,9 @@
                     break;
                 case 'cyan':
                     body.classList.add('from-cyan-50', 'to-teal-100');
+                    break;
+                case 'darkblue':
+                    body.style.background = 'linear-gradient(135deg, #0050f0 0%, #003bb8 100%)';
                     break;
                 default: // blue
                     body.classList.add('from-blue-50', 'to-indigo-100');
@@ -1323,6 +1378,20 @@
             // This function is now simplified since buttons are in the settings menu
             // The fade system is no longer needed for the top buttons
         }
+
+        // Loan details modal functions
+        function showLoanDetailsModal() {
+            document.getElementById('loanDetailsModal').classList.remove('hidden');
+        }
+
+        function hideLoanDetailsModal() {
+            document.getElementById('loanDetailsModal').classList.add('hidden');
+        }
+
+        // Open payment schedule function
+        function openPaymentSchedule() {
+            window.open('https://docs.google.com/spreadsheets/d/1kkQZg-fqQOhVcj1rkZdlqSIalVwmzAXz/edit?usp=sharing&ouid=30075&rtpof=true&sd=true', '_blank');
+        }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9793911835905fd9',t:'MTc1Njg4NDg4OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9795a73d14eba5cf',t:'MTc1NjkwNjc2Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
