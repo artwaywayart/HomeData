@@ -117,20 +117,21 @@
                         <div class="border-t border-gray-100 my-1"></div>
                         <button id="loginMenuBtn" onclick="showLoginModal(); hideSettingsMenu();" class="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors flex items-center">
                             <i class="fas fa-user text-green-500 mr-3 text-sm"></i>
-                            <span class="text-gray-700 text-sm font-medium">เข้าสู่ระบบแอดมิน</span>
+                            <span class="text-gray-700 text-sm font-medium">แอดมิน</span>
                         </button>
                         
                         <!-- Admin Menu Items (hidden by default) -->
                         <div id="adminMenuItems" class="hidden">
                             <div class="border-t border-gray-100 my-1"></div>
-                            <button onclick="backToAdmin(); hideSettingsMenu();" class="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors flex items-center">
-                                <i class="fas fa-arrow-left text-blue-500 mr-3 text-sm"></i>
-                                <span class="text-gray-700 text-sm font-medium">กลับสู่หน้าแอดมิน</span>
-                            </button>
                             <button onclick="showMainPage(); hideSettingsMenu();" class="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors flex items-center">
                                 <i class="fas fa-home text-green-500 mr-3 text-sm"></i>
                                 <span class="text-gray-700 text-sm font-medium">หน้าหลัก</span>
                             </button>
+                            <button onclick="showAdminPanel(); hideSettingsMenu();" class="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors flex items-center">
+                                <i class="fas fa-clipboard-check text-purple-500 mr-3 text-sm"></i>
+                                <span class="text-gray-700 text-sm font-medium">ตรวจสอบข้อมูล</span>
+                            </button>
+                            <div class="border-t border-gray-100 my-1"></div>
                             <button onclick="logout(); hideSettingsMenu();" class="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors flex items-center">
                                 <i class="fas fa-sign-out-alt text-red-500 mr-3 text-sm"></i>
                                 <span class="text-gray-700 text-sm font-medium">ออกจากระบบ</span>
@@ -141,7 +142,7 @@
             </div>
             
             <!-- Circular Progress Ring -->
-            <div class="flex justify-center mb-6 sm:mb-8">
+            <div class="flex justify-center mb-6 sm:mb-8 mt-4 sm:mt-6">
                 <div class="relative w-48 h-48 sm:w-52 sm:h-52">
                     <!-- Background Circle -->
                     <svg class="w-full h-full transform -rotate-90" viewBox="0 0 120 120">
@@ -168,10 +169,7 @@
                     <!-- Center Content -->
                     <div class="absolute inset-0 flex flex-col items-center justify-center px-4">
                         <div class="text-xs sm:text-sm text-gray-500 leading-tight text-center mb-2">จำนวนเงินที่ชำระแล้ว</div>
-                        <div id="totalPaid" class="font-bold text-xl sm:text-2xl text-gray-800 leading-tight mb-1 text-center">0 บาท</div>
-                        <div class="bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 px-3 py-1.5 rounded-full text-sm font-semibold shadow-sm border border-green-200">
-                            <span id="progressPercent">0%</span>
-                        </div>
+                        <div id="totalPaid" class="font-bold text-xl sm:text-2xl text-gray-800 leading-tight text-center">0 บาท</div>
                     </div>
                 </div>
             </div>
@@ -185,6 +183,13 @@
                 <div class="flex justify-between items-center">
                     <span class="text-base sm:text-lg text-gray-600 leading-tight">งวดทั้งหมด</span>
                     <span class="font-bold text-base sm:text-lg leading-tight">83 งวด</span>
+                </div>
+                
+                <!-- Progress Percentage -->
+                <div class="flex justify-center pt-2">
+                    <div class="bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold shadow-sm border border-green-200">
+                        <span id="progressPercent">0%</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -212,8 +217,38 @@
     <!-- Admin Panel -->
     <div id="adminPanel" class="container mx-auto px-3 py-6 max-w-sm sm:max-w-6xl sm:px-4 sm:py-8 hidden">
         <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 card-shadow">
+            <!-- Admin Header with Settings Button -->
             <div class="flex justify-between items-center mb-4 sm:mb-6">
                 <h2 class="text-xl sm:text-2xl font-bold text-gray-800">ตรวจสอบข้อมูล</h2>
+                
+                <!-- Admin Settings Button -->
+                <div class="relative">
+                    <button id="adminSettingsBtn" onclick="toggleAdminSettingsMenu()" class="bg-gray-100 hover:bg-gray-200 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-200">
+                        <i class="fas fa-cog text-gray-600 text-sm sm:text-base"></i>
+                    </button>
+                    
+                    <!-- Admin Settings Dropdown Menu -->
+                    <div id="adminSettingsMenu" class="absolute top-12 right-0 bg-white rounded-xl shadow-xl border border-gray-200 py-2 w-48 hidden z-20">
+                        <button onclick="showThemeSelector(); hideAdminSettingsMenu();" class="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors flex items-center">
+                            <i class="fas fa-palette text-blue-500 mr-3 text-sm"></i>
+                            <span class="text-gray-700 text-sm font-medium">เปลี่ยนธีมสี</span>
+                        </button>
+                        <div class="border-t border-gray-100 my-1"></div>
+                        <button onclick="showMainPage(); hideAdminSettingsMenu();" class="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors flex items-center">
+                            <i class="fas fa-home text-green-500 mr-3 text-sm"></i>
+                            <span class="text-gray-700 text-sm font-medium">หน้าหลัก</span>
+                        </button>
+                        <button onclick="showAdminPanel(); hideAdminSettingsMenu();" class="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors flex items-center">
+                            <i class="fas fa-clipboard-check text-purple-500 mr-3 text-sm"></i>
+                            <span class="text-gray-700 text-sm font-medium">ตรวจสอบข้อมูล</span>
+                        </button>
+                        <div class="border-t border-gray-100 my-1"></div>
+                        <button onclick="logout(); hideAdminSettingsMenu();" class="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors flex items-center">
+                            <i class="fas fa-sign-out-alt text-red-500 mr-3 text-sm"></i>
+                            <span class="text-gray-700 text-sm font-medium">ออกจากระบบ</span>
+                        </button>
+                    </div>
+                </div>
             </div>
             
             <!-- Mobile View -->
@@ -478,9 +513,16 @@
             document.addEventListener('click', function(event) {
                 const settingsBtn = document.getElementById('settingsBtn');
                 const settingsMenu = document.getElementById('settingsMenu');
+                const adminSettingsBtn = document.getElementById('adminSettingsBtn');
+                const adminSettingsMenu = document.getElementById('adminSettingsMenu');
                 
                 if (!settingsBtn.contains(event.target) && !settingsMenu.contains(event.target)) {
                     hideSettingsMenu();
+                }
+                
+                if (adminSettingsBtn && adminSettingsMenu && 
+                    !adminSettingsBtn.contains(event.target) && !adminSettingsMenu.contains(event.target)) {
+                    hideAdminSettingsMenu();
                 }
             });
             
@@ -1117,12 +1159,20 @@
             document.getElementById('mainContent').classList.remove('hidden');
         }
 
-        // Back to admin function
+        // Show admin panel function
+        function showAdminPanel() {
+            document.getElementById('mainContent').classList.add('hidden');
+            document.getElementById('adminPanel').classList.remove('hidden');
+        }
+
+        // Back to admin function (kept for compatibility)
         function backToAdmin() {
             // Switch back to admin panel from main page
             document.getElementById('mainContent').classList.add('hidden');
             document.getElementById('adminPanel').classList.remove('hidden');
         }
+
+
 
 
 
@@ -1244,6 +1294,17 @@
             settingsMenu.classList.add('hidden');
         }
 
+        // Admin settings menu functions
+        function toggleAdminSettingsMenu() {
+            const adminSettingsMenu = document.getElementById('adminSettingsMenu');
+            adminSettingsMenu.classList.toggle('hidden');
+        }
+
+        function hideAdminSettingsMenu() {
+            const adminSettingsMenu = document.getElementById('adminSettingsMenu');
+            adminSettingsMenu.classList.add('hidden');
+        }
+
         function updateSettingsMenu() {
             const loginMenuBtn = document.getElementById('loginMenuBtn');
             const adminMenuItems = document.getElementById('adminMenuItems');
@@ -1263,5 +1324,5 @@
             // The fade system is no longer needed for the top buttons
         }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'979180f052325fd9',t:'MTc1Njg2MzI1NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97936776439735a4',t:'MTc1Njg4MzE4My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
