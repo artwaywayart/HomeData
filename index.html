@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แอปผ่อนบ้าน</title>
+    <title>ระบบกู้ผ่อนบ้าน</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -57,8 +57,10 @@
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
-    <!-- Top Controls -->
-    <div class="fixed top-3 right-3 sm:top-4 sm:right-4 z-50 flex items-center space-x-1.5 sm:space-x-2">
+
+
+    <!-- Top Controls (Hidden - moved to settings menu) -->
+    <div class="hidden">
         <!-- Theme Toggle -->
         <button id="themeToggle" onclick="showThemeSelector()" class="bg-gray-600 hover:bg-gray-700 text-white p-2 sm:p-3 rounded-md sm:rounded-lg text-xs sm:text-sm transition-colors">
             <i class="fas fa-palette text-xs sm:text-sm"></i>
@@ -86,15 +88,56 @@
     <!-- Main Content -->
     <div id="mainContent" class="container mx-auto px-3 py-6 max-w-sm sm:max-w-md sm:px-4 sm:py-8">
         <!-- Card 1: Loan Summary -->
-        <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6 card-shadow">
-            <div class="text-center mb-4 sm:mb-6">
-                <div class="bg-blue-100 w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 relative overflow-hidden cursor-pointer" onclick="showIconSelector()">
-                    <img id="profileImage" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'%3E%3Cpath d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/%3E%3C/svg%3E" alt="รูปโปรไฟล์" class="w-full h-full object-cover rounded-full">
+        <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6 card-shadow relative">
+            <input type="file" id="profileImageInput" accept="image/*" class="hidden">
+            
+            <!-- Profile Icon - Top Left of Card -->
+            <div class="absolute top-3 left-3 sm:top-4 sm:left-4 z-10">
+                <div class="bg-blue-100 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center relative overflow-hidden cursor-pointer shadow-lg hover:shadow-xl transition-all duration-200" onclick="showIconSelector()">
+                    <img id="profileImageTop" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'%3E%3Cpath d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/%3E%3C/svg%3E" alt="รูปโปรไฟล์" class="w-full h-full object-cover rounded-full">
                     <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-200 rounded-full flex items-center justify-center">
-                        <i class="fas fa-edit text-white opacity-0 hover:opacity-100 transition-opacity duration-200 text-xs sm:text-sm"></i>
+                        <i class="fas fa-edit text-white opacity-0 hover:opacity-100 transition-opacity duration-200 text-xs"></i>
                     </div>
                 </div>
-                <input type="file" id="profileImageInput" accept="image/*" class="hidden">
+            </div>
+            
+            <!-- Settings Button - Top Right of Card -->
+            <div class="absolute top-3 right-3 sm:top-4 sm:right-4 z-10">
+                <div class="relative">
+                    <button id="settingsBtn" onclick="toggleSettingsMenu()" class="bg-gray-100 hover:bg-gray-200 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-200">
+                        <i class="fas fa-cog text-gray-600 text-sm sm:text-base"></i>
+                    </button>
+                    
+                    <!-- Settings Dropdown Menu -->
+                    <div id="settingsMenu" class="absolute top-12 right-0 bg-white rounded-xl shadow-xl border border-gray-200 py-2 w-48 hidden z-20">
+                        <button onclick="showThemeSelector(); hideSettingsMenu();" class="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors flex items-center">
+                            <i class="fas fa-palette text-blue-500 mr-3 text-sm"></i>
+                            <span class="text-gray-700 text-sm font-medium">เปลี่ยนธีมสี</span>
+                        </button>
+                        <div class="border-t border-gray-100 my-1"></div>
+                        <button id="loginMenuBtn" onclick="showLoginModal(); hideSettingsMenu();" class="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors flex items-center">
+                            <i class="fas fa-user text-green-500 mr-3 text-sm"></i>
+                            <span class="text-gray-700 text-sm font-medium">เข้าสู่ระบบแอดมิน</span>
+                        </button>
+                        
+                        <!-- Admin Menu Items (hidden by default) -->
+                        <div id="adminMenuItems" class="hidden">
+                            <div class="border-t border-gray-100 my-1"></div>
+                            <button onclick="backToAdmin(); hideSettingsMenu();" class="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors flex items-center">
+                                <i class="fas fa-arrow-left text-blue-500 mr-3 text-sm"></i>
+                                <span class="text-gray-700 text-sm font-medium">กลับสู่หน้าแอดมิน</span>
+                            </button>
+                            <button onclick="showMainPage(); hideSettingsMenu();" class="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors flex items-center">
+                                <i class="fas fa-home text-green-500 mr-3 text-sm"></i>
+                                <span class="text-gray-700 text-sm font-medium">หน้าหลัก</span>
+                            </button>
+                            <button onclick="logout(); hideSettingsMenu();" class="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors flex items-center">
+                                <i class="fas fa-sign-out-alt text-red-500 mr-3 text-sm"></i>
+                                <span class="text-gray-700 text-sm font-medium">ออกจากระบบ</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <!-- Circular Progress Ring -->
@@ -102,9 +145,7 @@
                 <div class="relative w-48 h-48 sm:w-52 sm:h-52">
                     <!-- Background Circle -->
                     <svg class="w-full h-full transform -rotate-90" viewBox="0 0 120 120">
-                        <!-- Outer shadow ring -->
-                        <circle cx="60" cy="60" r="54" stroke="#cbd5e1" stroke-width="3" fill="none" opacity="0.4"/>
-                        <!-- Main background circle - thicker and more visible -->
+                        <!-- Main background circle -->
                         <circle cx="60" cy="60" r="50" stroke="#e2e8f0" stroke-width="4" fill="none"/>
                         <!-- Inner shadow for depth -->
                         <circle cx="60" cy="60" r="46" stroke="#f8fafc" stroke-width="2" fill="none" opacity="0.8"/>
@@ -428,11 +469,20 @@
             const adminLoggedIn = localStorage.getItem('adminLoggedIn');
             if (adminLoggedIn === 'true') {
                 isAdmin = true;
-                document.getElementById('loginBtn').classList.add('hidden');
-                document.getElementById('adminButtons').classList.remove('hidden');
+                updateSettingsMenu();
                 document.getElementById('mainContent').classList.add('hidden');
                 document.getElementById('adminPanel').classList.remove('hidden');
             }
+            
+            // Close settings menu when clicking outside
+            document.addEventListener('click', function(event) {
+                const settingsBtn = document.getElementById('settingsBtn');
+                const settingsMenu = document.getElementById('settingsMenu');
+                
+                if (!settingsBtn.contains(event.target) && !settingsMenu.contains(event.target)) {
+                    hideSettingsMenu();
+                }
+            });
             
             // Load saved theme
             const savedTheme = localStorage.getItem('selectedTheme') || 'blue';
@@ -441,7 +491,7 @@
             // Load saved profile image
             const savedProfileImage = localStorage.getItem('profileImage');
             if (savedProfileImage) {
-                document.getElementById('profileImage').src = savedProfileImage;
+                document.getElementById('profileImageTop').src = savedProfileImage;
             }
             
             // Initialize button fade system
@@ -469,7 +519,7 @@
                     const reader = new FileReader();
                     reader.onload = function(e) {
                         const imageData = e.target.result;
-                        document.getElementById('profileImage').src = imageData;
+                        document.getElementById('profileImageTop').src = imageData;
                         localStorage.setItem('profileImage', imageData);
                         localStorage.removeItem('selectedIconType'); // Clear icon selection when custom image is uploaded
                         hideIconSelector(); // Close the modal after upload
@@ -719,8 +769,7 @@
                 isAdmin = true;
                 localStorage.setItem('adminLoggedIn', 'true'); // Save admin status
                 hideLoginModal();
-                document.getElementById('loginBtn').classList.add('hidden');
-                document.getElementById('adminButtons').classList.remove('hidden');
+                updateSettingsMenu();
                 document.getElementById('mainContent').classList.add('hidden');
                 document.getElementById('adminPanel').classList.remove('hidden');
                 loadData();
@@ -732,8 +781,7 @@
         function logout() {
             isAdmin = false;
             localStorage.removeItem('adminLoggedIn'); // Remove admin status
-            document.getElementById('loginBtn').classList.remove('hidden');
-            document.getElementById('adminButtons').classList.add('hidden');
+            updateSettingsMenu();
             document.getElementById('mainContent').classList.remove('hidden');
             document.getElementById('adminPanel').classList.add('hidden');
         }
@@ -1098,7 +1146,7 @@
             const selectedIcon = iconMap[iconType];
             if (selectedIcon) {
                 // Create a beautiful SVG icon with gradient background
-                const profileImage = document.getElementById('profileImage');
+                const profileImage = document.getElementById('profileImageTop');
                 profileImage.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3CradialGradient id='grad' cx='50%25' cy='30%25' r='70%25'%3E%3Cstop offset='0%25' style='stop-color:${encodeURIComponent(selectedIcon.color)};stop-opacity:0.3' /%3E%3Cstop offset='100%25' style='stop-color:${encodeURIComponent(selectedIcon.color)};stop-opacity:0.1' /%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='48' fill='url(%23grad)' stroke='${encodeURIComponent(selectedIcon.color)}' stroke-width='2' opacity='0.8'/%3E%3Ctext x='50' y='60' text-anchor='middle' font-size='35' fill='${encodeURIComponent(selectedIcon.color)}'%3E${selectedIcon.emoji}%3C/text%3E%3C/svg%3E`;
                 
                 // Store the icon selection
@@ -1185,60 +1233,35 @@
             }
         }
 
-        // Button fade system
-        function initializeButtonFade() {
-            const themeBtn = document.getElementById('themeToggle');
-            const loginBtn = document.getElementById('loginBtn');
-            let themeInactiveTimer, loginInactiveTimer;
+        // Settings menu functions
+        function toggleSettingsMenu() {
+            const settingsMenu = document.getElementById('settingsMenu');
+            settingsMenu.classList.toggle('hidden');
+        }
+
+        function hideSettingsMenu() {
+            const settingsMenu = document.getElementById('settingsMenu');
+            settingsMenu.classList.add('hidden');
+        }
+
+        function updateSettingsMenu() {
+            const loginMenuBtn = document.getElementById('loginMenuBtn');
+            const adminMenuItems = document.getElementById('adminMenuItems');
             
-            // Make buttons inactive initially
-            themeBtn.classList.add('btn-inactive');
-            if (!isAdmin) {
-                loginBtn.classList.add('btn-inactive');
-            }
-            
-            // Theme button interactions
-            themeBtn.addEventListener('mouseenter', () => {
-                clearTimeout(themeInactiveTimer);
-                themeBtn.classList.remove('btn-inactive');
-            });
-            
-            themeBtn.addEventListener('mouseleave', () => {
-                themeInactiveTimer = setTimeout(() => {
-                    themeBtn.classList.add('btn-inactive');
-                }, 2000);
-            });
-            
-            themeBtn.addEventListener('click', () => {
-                clearTimeout(themeInactiveTimer);
-                themeBtn.classList.remove('btn-inactive');
-                themeInactiveTimer = setTimeout(() => {
-                    themeBtn.classList.add('btn-inactive');
-                }, 3000);
-            });
-            
-            // Login button interactions (only if not admin)
-            if (!isAdmin) {
-                loginBtn.addEventListener('mouseenter', () => {
-                    clearTimeout(loginInactiveTimer);
-                    loginBtn.classList.remove('btn-inactive');
-                });
-                
-                loginBtn.addEventListener('mouseleave', () => {
-                    loginInactiveTimer = setTimeout(() => {
-                        loginBtn.classList.add('btn-inactive');
-                    }, 2000);
-                });
-                
-                loginBtn.addEventListener('click', () => {
-                    clearTimeout(loginInactiveTimer);
-                    loginBtn.classList.remove('btn-inactive');
-                    loginInactiveTimer = setTimeout(() => {
-                        loginBtn.classList.add('btn-inactive');
-                    }, 3000);
-                });
+            if (isAdmin) {
+                loginMenuBtn.classList.add('hidden');
+                adminMenuItems.classList.remove('hidden');
+            } else {
+                loginMenuBtn.classList.remove('hidden');
+                adminMenuItems.classList.add('hidden');
             }
         }
+
+        // Button fade system (simplified since buttons are now in menu)
+        function initializeButtonFade() {
+            // This function is now simplified since buttons are in the settings menu
+            // The fade system is no longer needed for the top buttons
+        }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'978d2a8b2773fd32',t:'MTc1NjgxNzc3My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'979180f052325fd9',t:'MTc1Njg2MzI1NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
