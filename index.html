@@ -30,15 +30,15 @@
         }
         
         .theme-purple {
-            background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+            background: linear-gradient(135deg, #8e8ec2 0%, #7c7cb8 100%);
         }
         
-        .theme-pink {
-            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+        .theme-yellow {
+            background: linear-gradient(135deg, #ffdb00 0%, #fbbf24 100%);
         }
         
-        .theme-orange {
-            background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);
+        .theme-red {
+            background: linear-gradient(135deg, #dd2b2b 0%, #b91c1c 100%);
         }
         
         .theme-cyan {
@@ -430,7 +430,7 @@
                     <div class="w-12 h-12 bg-blue-500 rounded-full mb-3 flex items-center justify-center">
                         <i class="fas fa-droplet text-white"></i>
                     </div>
-                    <span class="text-sm font-medium text-blue-700">ธีมน้ำเงิน</span>
+                    <span class="text-sm font-medium text-blue-700">ธีมสีเทา</span>
                 </button>
                 
                 <!-- Green Theme -->
@@ -449,20 +449,20 @@
                     <span class="text-sm font-medium text-purple-700">ธีมม่วง</span>
                 </button>
                 
-                <!-- Pink Theme -->
-                <button onclick="changeTheme('pink')" class="theme-preview bg-gradient-to-br from-pink-50 to-rose-100 p-6 rounded-xl border-2 border-transparent hover:border-pink-400 transition-all duration-200 flex flex-col items-center">
-                    <div class="w-12 h-12 bg-pink-500 rounded-full mb-3 flex items-center justify-center">
-                        <i class="fas fa-heart text-white"></i>
-                    </div>
-                    <span class="text-sm font-medium text-pink-700">ธีมชมพู</span>
-                </button>
-                
-                <!-- Orange Theme -->
-                <button onclick="changeTheme('orange')" class="theme-preview bg-gradient-to-br from-orange-50 to-amber-100 p-6 rounded-xl border-2 border-transparent hover:border-orange-400 transition-all duration-200 flex flex-col items-center">
-                    <div class="w-12 h-12 bg-orange-500 rounded-full mb-3 flex items-center justify-center">
+                <!-- Yellow Theme -->
+                <button onclick="changeTheme('yellow')" class="theme-preview bg-gradient-to-br from-yellow-50 to-amber-100 p-6 rounded-xl border-2 border-transparent hover:border-yellow-400 transition-all duration-200 flex flex-col items-center">
+                    <div class="w-12 h-12 bg-yellow-500 rounded-full mb-3 flex items-center justify-center">
                         <i class="fas fa-sun text-white"></i>
                     </div>
-                    <span class="text-sm font-medium text-orange-700">ธีมส้ม</span>
+                    <span class="text-sm font-medium text-yellow-700">ธีมสีเหลือง</span>
+                </button>
+                
+                <!-- Red Theme -->
+                <button onclick="changeTheme('red')" class="theme-preview bg-gradient-to-br from-red-50 to-rose-100 p-6 rounded-xl border-2 border-transparent hover:border-red-400 transition-all duration-200 flex flex-col items-center">
+                    <div class="w-12 h-12 bg-red-500 rounded-full mb-3 flex items-center justify-center">
+                        <i class="fas fa-fire text-white"></i>
+                    </div>
+                    <span class="text-sm font-medium text-red-700">ธีมสีแดง</span>
                 </button>
                 
                 <!-- Dark Blue Theme -->
@@ -1304,7 +1304,7 @@
             const body = document.body;
             
             // Remove all theme classes
-            body.classList.remove('theme-blue', 'theme-green', 'theme-purple', 'theme-pink', 'theme-orange', 'theme-cyan', 'theme-darkblue');
+            body.classList.remove('theme-blue', 'theme-green', 'theme-purple', 'theme-yellow', 'theme-red', 'theme-cyan', 'theme-darkblue');
             
             // Apply new theme
             body.classList.add(`theme-${themeName}`);
@@ -1318,13 +1318,13 @@
                     body.classList.add('from-green-50', 'to-emerald-100');
                     break;
                 case 'purple':
-                    body.classList.add('from-purple-50', 'to-violet-100');
+                    body.style.background = 'linear-gradient(135deg, #8e8ec2 0%, #7c7cb8 100%)';
                     break;
-                case 'pink':
-                    body.classList.add('from-pink-50', 'to-rose-100');
+                case 'yellow':
+                    body.style.background = 'linear-gradient(135deg, #ffdb00 0%, #fbbf24 100%)';
                     break;
-                case 'orange':
-                    body.classList.add('from-orange-50', 'to-amber-100');
+                case 'red':
+                    body.style.background = 'linear-gradient(135deg, #dd2b2b 0%, #b91c1c 100%)';
                     break;
                 case 'cyan':
                     body.classList.add('from-cyan-50', 'to-teal-100');
@@ -1393,5 +1393,5 @@
             window.open('https://docs.google.com/spreadsheets/d/1kkQZg-fqQOhVcj1rkZdlqSIalVwmzAXz/edit?usp=sharing&ouid=30075&rtpof=true&sd=true', '_blank');
         }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9795a73d14eba5cf',t:'MTc1NjkwNjc2Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'979605a622fd35a4',t:'MTc1NjkxMDYzNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
