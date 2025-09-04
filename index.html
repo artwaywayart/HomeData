@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบกู้ผ่อนบ้าน</title>
+    <title>แอปกู้ผ่อนบ้าน</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -26,7 +26,7 @@
         }
         
         .theme-green {
-            background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+            background: linear-gradient(135deg, #586d72 0%, #4a5d62 100%);
         }
         
         .theme-purple {
@@ -427,18 +427,18 @@
             <div class="grid grid-cols-2 gap-4 mb-6">
                 <!-- Blue Theme -->
                 <button onclick="changeTheme('blue')" class="theme-preview bg-gradient-to-br from-blue-50 to-indigo-100 p-6 rounded-xl border-2 border-transparent hover:border-blue-400 transition-all duration-200 flex flex-col items-center">
-                    <div class="w-12 h-12 bg-blue-500 rounded-full mb-3 flex items-center justify-center">
-                        <i class="fas fa-droplet text-white"></i>
+                    <div class="w-12 h-12 bg-white rounded-full mb-3 flex items-center justify-center border border-gray-300">
+                        <i class="fas fa-circle text-gray-400"></i>
                     </div>
-                    <span class="text-sm font-medium text-blue-700">ธีมสีเทา</span>
+                    <span class="text-sm font-medium text-blue-700">ธีมขาว</span>
                 </button>
                 
                 <!-- Green Theme -->
-                <button onclick="changeTheme('green')" class="theme-preview bg-gradient-to-br from-green-50 to-emerald-100 p-6 rounded-xl border-2 border-transparent hover:border-green-400 transition-all duration-200 flex flex-col items-center">
-                    <div class="w-12 h-12 bg-green-500 rounded-full mb-3 flex items-center justify-center">
-                        <i class="fas fa-leaf text-white"></i>
+                <button onclick="changeTheme('green')" class="theme-preview bg-gradient-to-br from-gray-600 to-gray-700 p-6 rounded-xl border-2 border-transparent hover:border-gray-400 transition-all duration-200 flex flex-col items-center">
+                    <div class="w-12 h-12 bg-gray-700 rounded-full mb-3 flex items-center justify-center">
+                        <i class="fas fa-square text-white"></i>
                     </div>
-                    <span class="text-sm font-medium text-green-700">ธีมเขียว</span>
+                    <span class="text-sm font-medium text-white">ธีมเทาเข้ม</span>
                 </button>
                 
                 <!-- Purple Theme -->
@@ -467,10 +467,10 @@
                 
                 <!-- Dark Blue Theme -->
                 <button onclick="changeTheme('darkblue')" class="theme-preview bg-gradient-to-br from-slate-100 to-blue-200 p-6 rounded-xl border-2 border-transparent hover:border-slate-400 transition-all duration-200 flex flex-col items-center">
-                    <div class="w-12 h-12 bg-slate-700 rounded-full mb-3 flex items-center justify-center">
-                        <i class="fas fa-moon text-white"></i>
+                    <div class="w-12 h-12 bg-blue-600 rounded-full mb-3 flex items-center justify-center">
+                        <i class="fas fa-droplet text-white"></i>
                     </div>
-                    <span class="text-sm font-medium text-slate-700">ธีมสีน้ำเงินเข้ม</span>
+                    <span class="text-sm font-medium text-slate-700">ธีมน้ำเงิน</span>
                 </button>
             </div>
             
@@ -1315,7 +1315,7 @@
             
             switch(themeName) {
                 case 'green':
-                    body.classList.add('from-green-50', 'to-emerald-100');
+                    body.style.background = 'linear-gradient(135deg, #586d72 0%, #4a5d62 100%)';
                     break;
                 case 'purple':
                     body.style.background = 'linear-gradient(135deg, #8e8ec2 0%, #7c7cb8 100%)';
@@ -1390,8 +1390,8 @@
 
         // Open payment schedule function
         function openPaymentSchedule() {
-            window.open('https://docs.google.com/spreadsheets/d/1kkQZg-fqQOhVcj1rkZdlqSIalVwmzAXz/edit?usp=sharing&ouid=30075&rtpof=true&sd=true', '_blank');
+            window.open('https://docs.google.com/spreadsheets/d/1jhtlFO_t3R7yBDe9UG3ebsqHwmyv1hnPUBbSnUWY52w/edit?usp=sharing', '_blank');
         }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'979605a622fd35a4',t:'MTc1NjkxMDYzNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'979a3204038f45c8',t:'MTc1Njk1NDM5NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
