@@ -21,72 +21,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="mobile-web-app-capable" content="yes"><!-- Web App Manifest -->
-  <link rel="manifest" href="#" id="manifest-placeholder">
-  <script>
-        // Create manifest dynamically to ensure proper encoding
-        const manifestData = {
-            "name": "แอปผ่อนบ้าน",
-            "short_name": "แอปผ่อนบ้าน",
-            "description": "ระบบติดตามข้อมูลและการชำระเงินของการขายบ้าน",
-            "start_url": "./",
-            "display": "standalone",
-            "orientation": "portrait-primary",
-            "background_color": "#ffffff",
-            "theme_color": "#3b82f6",
-            "categories": ["finance", "utilities"],
-            "lang": "th",
-            "scope": "./",
-            "icons": [
-                {
-                    "src": "https://img5.pic.in.th/file/secure-sv1/559429748_.5_.464_n.jpg",
-                    "sizes": "512x512",
-                    "type": "image/jpeg",
-                    "purpose": "any maskable"
-                },
-                {
-                    "src": "https://img5.pic.in.th/file/secure-sv1/559429748_.5_.464_n.jpg",
-                    "sizes": "256x256",
-                    "type": "image/jpeg",
-                    "purpose": "any"
-                },
-                {
-                    "src": "https://img5.pic.in.th/file/secure-sv1/559429748_.5_.464_n.jpg",
-                    "sizes": "192x192",
-                    "type": "image/jpeg",
-                    "purpose": "any"
-                },
-                {
-                    "src": "https://img5.pic.in.th/file/secure-sv1/559429748_.5_.464_n.jpg",
-                    "sizes": "144x144",
-                    "type": "image/jpeg",
-                    "purpose": "any"
-                },
-                {
-                    "src": "https://img5.pic.in.th/file/secure-sv1/559429748_.5_.464_n.jpg",
-                    "sizes": "96x96",
-                    "type": "image/jpeg",
-                    "purpose": "any"
-                },
-                {
-                    "src": "https://img5.pic.in.th/file/secure-sv1/559429748_.5_.464_n.jpg",
-                    "sizes": "72x72",
-                    "type": "image/jpeg",
-                    "purpose": "any"
-                },
-                {
-                    "src": "https://img5.pic.in.th/file/secure-sv1/559429748_.5_.464_n.jpg",
-                    "sizes": "48x48",
-                    "type": "image/jpeg",
-                    "purpose": "any"
-                }
-            ]
-        };
-        
-        // Create blob URL for manifest
-        const manifestBlob = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
-        const manifestURL = URL.createObjectURL(manifestBlob);
-        document.getElementById('manifest-placeholder').href = manifestURL;
-    </script><!-- iOS Safari PWA Support -->
+  <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIuC5geC4reC4m+C4nOC5iOC4reC4meC4muC5ieC4suC4mSIsCiAgInNob3J0X25hbWUiOiAi4LmB4Lit4Lib4Lic4LmI4Lit4LiZ4Lia4LmJ4Liy4LiZIiwKICAiZGVzY3JpcHRpb24iOiAi4Lij4Liw4Lia4Lia4LiV4Li04LiU4LiV4Liy4Lih4LiC4LmJ4Lit4Lih4Li54Lil4LmB4Lil4Liw4LiB4Liy4Lij4LiK4Liz4Lij4Liw4LmA4LiH4Li04LiZ4LiC4Lit4LiH4LiB4Liy4Lij4LiC4Liy4Lii4Lia4LmJ4Liy4LiZIiwKICAic3RhcnRfdXJsIjogIi4vIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAib3JpZW50YXRpb24iOiAicG9ydHJhaXQtcHJpbWFyeSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiI2ZmZmZmZiIsCiAgInRoZW1lX2NvbG9yIjogIiMzYjgyZjYiLAogICJjYXRlZ29yaWVzIjogWyJmaW5hbmNlIiwgInV0aWxpdGllcyJdLAogICJsYW5nIjogInRoIiwKICAic2NvcGUiOiAiLi8iLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWwsJTNDc3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zycgdmlld0JveD0nMCAwIDEwMCAxMDAnJTNFJTNDZGVmcyUzRSUzQ3JhZGlhbEdyYWRpZW50IGlkPSdncmFkJyBjeD0nNTAlMjUnIGN5PSczMCUyNScgcj0nNzAlMjUnJTNFJTNDc3RvcCBvZmZzZXQ9JzAlMjUnIHN0eWxlPSdzdG9wLWNvbG9yOiUyMzNiODJmNjtzdG9wLW9wYWNpdHk6MC44JyAlMkYlM0UlM0NzdG9wIG9mZnNldD0nMTAwJTI1JyBzdHlsZT0nc3RvcC1jb2xvcjolMjMxZTQwYWY7c3RvcC1vcGFjaXR5OjAuOScgJTJGJTNFJTNDJTJGcmFkaWFsR3JhZGllbnQlM0UlM0MlMkZkZWZzJTNFJTNDY2lyY2xlIGN4PSc1MCcgY3k9JzUwJyByPSc0OCcgZmlsbD0ndXJsKCUyM2dyYWQpJyBzdHJva2U9JyUyMzNiODJmNicgc3Ryb2tlLXdpZHRoPScyJyUyRiUzRSUzQ3RleHQgeD0nNTAnIHk9JzYwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBmb250LXNpemU9JzM1JyBmaWxsPSclMjMzYjgyZjYnJTNFJUYwJTlGJThGJUEwJTNDJTJGdGV4dCUzRSUzQyUyRnN2ZyUzRSIsCiAgICAgICJzaXplcyI6ICI1MTJ4NTEyIiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIsCiAgICAgICJwdXJwb3NlIjogImFueSBtYXNrYWJsZSIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sLCUzQ3N2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJyUzRSUzQ2RlZnMlM0UlM0NyYWRpYWxHcmFkaWVudCBpZD0nZ3JhZCcgY3g9JzUwJTI1JyBjeT0nMzAlMjUnIHI9JzcwJTI1JyUzRSUzQ3N0b3Agb2Zmc2V0PScwJTI1JyBzdHlsZT0nc3RvcC1jb2xvcjolMjMzYjgyZjY7c3RvcC1vcGFjaXR5OjAuOCcgJTJGJTNFJTNDc3RvcCBvZmZzZXQ9JzEwMCUyNScgc3R5bGU9J3N0b3AtY29sb3I6JTIzMWU0MGFmO3N0b3Atb3BhY2l0eTowLjknICUyRiUzRSUzQyUyRnJhZGlhbEdyYWRpZW50JTNFJTNDJTJGZGVmcyUzRSUzQ2NpcmNsZSBjeD0nNTAnIGN5PSc1MCcgcj0nNDgnIGZpbGw9J3VybCglMjNncmFkKScgc3Ryb2tlPSclMjMzYjgyZjYnIHN0cm9rZS13aWR0aD0nMicgJTJGJTNFJTNDdGV4dCB4PSc1MCcgeT0nNjAnIHRleHQtYW5jaG9yPSdtaWRkbGUnIGZvbnQtc2l6ZT0nMzUnIGZpbGw9JyUyMzNiODJmNiclM0UlRjAlOUYlOEYlQTAlM0MlMkZ0ZXh0JTNFJTNDJTJGc3ZnJTNFIiwKICAgICAgInNpemVzIjogIjI1NngyNTYiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIiwKICAgICAgInB1cnBvc2UiOiAiYW55IgogICAgfSwKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWwsJTNDc3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zycgdmlld0JveD0nMCAwIDEwMCAxMDAnJTNFJTNDZGVmcyUzRSUzQ3JhZGlhbEdyYWRpZW50IGlkPSdncmFkJyBjeD0nNTAlMjUnIGN5PSczMCUyNScgcj0nNzAlMjUnJTNFJTNDc3RvcCBvZmZzZXQ9JzAlMjUnIHN0eWxlPSdzdG9wLWNvbG9yOiUyMzNiODJmNjtzdG9wLW9wYWNpdHk6MC44JyAlMkYlM0UlM0NzdG9wIG9mZnNldD0nMTAwJTI1JyBzdHlsZT0nc3RvcC1jb2xvcjolMjMxZTQwYWY7c3RvcC1vcGFjaXR5OjAuOScgJTJGJTNFJTNDJTJGcmFkaWFsR3JhZGllbnQlM0UlM0MlMkZkZWZzJTNFJTNDY2lyY2xlIGN4PSc1MCcgY3k9JzUwJyByPSc0OCcgZmlsbD0ndXJsKCUyM2dyYWQpJyBzdHJva2U9JyUyMzNiODJmNicgc3Ryb2tlLXdpZHRoPScyJyAlMkYlM0UlM0N0ZXh0IHg9JzUwJyB5PSc2MCcgdGV4dC1hbmNob3I9J21pZGRsZScgZm9udC1zaXplPSczNScgZmlsbD0nJTIzM2I4MmY2JyUzRSVGMCU5RiU4RiVBMCUzQyUyRnRleHQlM0UlM0MlMkZzdmclM0UiLAogICAgICAic2l6ZXMiOiAiMTkyeDE5MiIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiLAogICAgICAicHVycG9zZSI6ICJhbnkiCiAgICB9LAogICAgewogICAgICAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbCwlM0NzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgMTAwIDEwMCclM0UlM0NkZWZzJTNFJTNDcmFkaWFsR3JhZGllbnQgaWQ9J2dyYWQnIGN4PSc1MCUyNScgY3k9JzMwJTI1JyByPSc3MCUyNSclM0UlM0NzdG9wIG9mZnNldD0nMCUyNScgc3R5bGU9J3N0b3AtY29sb3I6JTIzM2I4MmY2O3N0b3Atb3BhY2l0eTowLjgnICUyRiUzRSUzQ3N0b3Agb2Zmc2V0PScxMDAlMjUnIHN0eWxlPSdzdG9wLWNvbG9yOiUyMzFlNDBhZjtzdG9wLW9wYWNpdHk6MC45JyAlMkYlM0UlM0MlMkZyYWRpYWxHcmFkaWVudCUzRSUzQyUyRmRlZnMlM0UlM0NjaXJjbGUgY3g9JzUwJyBjeT0nNTAnIHI9JzQ4JyBmaWxsPSd1cmwoJTIzZ3JhZCknIHN0cm9rZT0nJTIzM2I4MmY2JyBzdHJva2Utd2lkdGg9JzInICUyRiUzRSUzQ3RleHQgeD0nNTAnIHk9JzYwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBmb250LXNpemU9JzM1JyBmaWxsPSclMjMzYjgyZjYnJTNFJUYwJTlGJThGJUEwJTNDJTJGdGV4dCUzRSUzQyUyRnN2ZyUzRSIsCiAgICAgICJzaXplcyI6ICIxNDR4MTQ0IiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIsCiAgICAgICJwdXJwb3NlIjogImFueSIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sLCUzQ3N2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJyUzRSUzQ2RlZnMlM0UlM0NyYWRpYWxHcmFkaWVudCBpZD0nZ3JhZCcgY3g9JzUwJTI1JyBjeT0nMzAlMjUnIHI9JzcwJTI1JyUzRSUzQ3N0b3Agb2Zmc2V0PScwJTI1JyBzdHlsZT0nc3RvcC1jb2xvcjolMjMzYjgyZjY7c3RvcC1vcGFjaXR5OjAuOCcgJTJGJTNFJTNDc3RvcCBvZmZzZXQ9JzEwMCUyNScgc3R5bGU9J3N0b3AtY29sb3I6JTIzMWU0MGFmO3N0b3Atb3BhY2l0eTowLjknICUyRiUzRSUzQyUyRnJhZGlhbEdyYWRpZW50JTNFJTNDJTJGZGVmcyUzRSUzQ2NpcmNsZSBjeD0nNTAnIGN5PSc1MCcgcj0nNDgnIGZpbGw9J3VybCglMjNncmFkKScgc3Ryb2tlPSclMjMzYjgyZjYnIHN0cm9rZS13aWR0aD0nMicgJTJGJTNFJTNDdGV4dCB4PSc1MCcgeT0nNjAnIHRleHQtYW5jaG9yPSdtaWRkbGUnIGZvbnQtc2l6ZT0nMzUnIGZpbGw9JyUyMzNiODJmNiclM0UlRjAlOUYlOEYlQTAlM0MlMkZ0ZXh0JTNFJTNDJTJGc3ZnJTNFIiwKICAgICAgInNpemVzIjogIjk2eDk2IiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIsCiAgICAgICJwdXJwb3NlIjogImFueSIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sLCUzQ3N2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJyUzRSUzQ2RlZnMlM0UlM0NyYWRpYWxHcmFkaWVudCBpZD0nZ3JhZCcgY3g9JzUwJTI1JyBjeT0nMzAlMjUnIHI9JzcwJTI1JyUzRSUzQ3N0b3Agb2Zmc2V0PScwJTI1JyBzdHlsZT0nc3RvcC1jb2xvcjolMjMzYjgyZjY7c3RvcC1vcGFjaXR5OjAuOCcgJTJGJTNFJTNDc3RvcCBvZmZzZXQ9JzEwMCUyNScgc3R5bGU9J3N0b3AtY29sb3I6JTIzMWU0MGFmO3N0b3Atb3BhY2l0eTowLjknICUyRiUzRSUzQyUyRnJhZGlhbEdyYWRpZW50JTNFJTNDJTJGZGVmcyUzRSUzQ2NpcmNsZSBjeD0nNTAnIGN5PSc1MCcgcj0nNDgnIGZpbGw9J3VybCglMjNncmFkKScgc3Ryb2tlPSclMjMzYjgyZjYnIHN0cm9rZS13aWR0aD0nMicgJTJGJTNFJTNDdGV4dCB4PSc1MCcgeT0nNjAnIHRleHQtYW5jaG9yPSdtaWRkbGUnIGZvbnQtc2l6ZT0nMzUnIGZpbGw9JyUyMzNiODJmNiclM0UlRjAlOUYlOEYlQTAlM0MlMkZ0ZXh0JTNFJTNDJTJGc3ZnJTNFIiwKICAgICAgInNpemVzIjogIjcyeDcyIiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIsCiAgICAgICJwdXJwb3NlIjogImFueSIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sLCUzQ3N2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJyUzRSUzQ2RlZnMlM0UlM0NyYWRpYWxHcmFkaWVudCBpZD0nZ3JhZCcgY3g9JzUwJTI1JyBjeT0nMzAlMjUnIHI9JzcwJTI1JyUzRSUzQ3N0b3Agb2Zmc2V0PScwJTI1JyBzdHlsZT0nc3RvcC1jb2xvcjolMjMzYjgyZjY7c3RvcC1vcGFjaXR5OjAuOCcgJTJGJTNFJTNDc3RvcCBvZmZzZXQ9JzEwMCUyNScgc3R5bGU9J3N0b3AtY29sb3I6JTIzMWU0MGFmO3N0b3Atb3BhY2l0eTowLjknICUyRiUzRSUzQyUyRnJhZGlhbEdyYWRpZW50JTNFJTNDJTJGZGVmcyUzRSUzQ2NpcmNsZSBjeD0nNTAnIGN5PSc1MCcgcj0nNDgnIGZpbGw9J3VybCglMjNncmFkKScgc3Ryb2tlPSclMjMzYjgyZjYnIHN0cm9rZS13aWR0aD0nMicgJTJGJTNFJTNDdGV4dCB4PSc1MCcgeT0nNjAnIHRleHQtYW5jaG9yPSdtaWRkbGUnIGZvbnQtc2l6ZT0nMzUnIGZpbGw9JyUyMzNiODJmNiclM0UlRjAlOUYlOEYlQTAlM0MlMkZ0ZXh0JTNFJTNDJTJGc3ZnJTNFIiwKICAgICAgInNpemVzIjogIjQ4eDQ4IiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIsCiAgICAgICJwdXJwb3NlIjogImFueSIKICAgIH0KICBdCn0="><!-- iOS Safari PWA Support -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-touch-fullscreen" content="yes"><!-- Android PWA Support -->
@@ -1305,6 +1240,9 @@
 
         // PWA Installation Functions
         function initializePWAInstall() {
+            // Register Service Worker first
+            registerServiceWorker();
+            
             // Always show install button initially
             showInstallButton();
             
@@ -1346,6 +1284,51 @@
             setTimeout(() => {
                 checkPWARequirements();
             }, 2000);
+        }
+
+        // Register Service Worker
+        async function registerServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                try {
+                    // Create a simple service worker inline
+                    const swCode = `
+                        const CACHE_NAME = 'house-loan-app-v1';
+                        const urlsToCache = [
+                            './',
+                            'https://cdn.tailwindcss.com',
+                            'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css',
+                            'https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap'
+                        ];
+
+                        self.addEventListener('install', (event) => {
+                            event.waitUntil(
+                                caches.open(CACHE_NAME)
+                                    .then((cache) => cache.addAll(urlsToCache))
+                            );
+                        });
+
+                        self.addEventListener('fetch', (event) => {
+                            event.respondWith(
+                                caches.match(event.request)
+                                    .then((response) => {
+                                        if (response) {
+                                            return response;
+                                        }
+                                        return fetch(event.request);
+                                    })
+                            );
+                        });
+                    `;
+                    
+                    const swBlob = new Blob([swCode], { type: 'application/javascript' });
+                    const swUrl = URL.createObjectURL(swBlob);
+                    
+                    const registration = await navigator.serviceWorker.register(swUrl);
+                    console.log('Service Worker registered successfully:', registration);
+                } catch (error) {
+                    console.log('Service Worker registration failed:', error);
+                }
+            }
         }
 
         function showInstallButton() {
@@ -1512,7 +1495,7 @@
 
         function checkPWARequirements() {
             console.log('=== PWA Requirements Check ===');
-            console.log('HTTPS:', location.protocol === 'https:');
+            console.log('HTTPS:', location.protocol === 'https:' || location.hostname === 'localhost');
             console.log('Service Worker supported:', 'serviceWorker' in navigator);
             console.log('Manifest link:', document.querySelector('link[rel="manifest"]') ? 'Found' : 'Missing');
             console.log('Display mode:', window.matchMedia('(display-mode: standalone)').matches ? 'Standalone' : 'Browser');
@@ -1520,16 +1503,62 @@
             console.log('User Agent:', navigator.userAgent);
             console.log('Deferred prompt available:', !!deferredPrompt);
             
-            // Check manifest
-            fetch(document.querySelector('link[rel="manifest"]').href)
-                .then(response => response.json())
-                .then(manifest => {
-                    console.log('Manifest loaded:', manifest);
-                })
-                .catch(error => {
-                    console.error('Manifest error:', error);
+            // Check Service Worker registration
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(registrations => {
+                    console.log('Service Worker registrations:', registrations.length);
                 });
+            }
+            
+            // Check manifest
+            const manifestLink = document.querySelector('link[rel="manifest"]');
+            if (manifestLink) {
+                console.log('Manifest href:', manifestLink.href);
+                
+                // Try to decode the base64 manifest
+                try {
+                    const base64Data = manifestLink.href.split(',')[1];
+                    const manifestJson = atob(base64Data);
+                    const manifest = JSON.parse(manifestJson);
+                    console.log('Manifest decoded successfully:', manifest);
+                    
+                    // Check required PWA fields
+                    const requiredFields = ['name', 'short_name', 'start_url', 'display', 'icons'];
+                    const missingFields = requiredFields.filter(field => !manifest[field]);
+                    if (missingFields.length === 0) {
+                        console.log('✅ All required manifest fields present');
+                    } else {
+                        console.log('❌ Missing manifest fields:', missingFields);
+                    }
+                    
+                    // Check icons
+                    if (manifest.icons && manifest.icons.length > 0) {
+                        console.log('✅ Icons found:', manifest.icons.length);
+                        manifest.icons.forEach((icon, index) => {
+                            console.log(`Icon ${index + 1}:`, icon.sizes, icon.type);
+                        });
+                    } else {
+                        console.log('❌ No icons found in manifest');
+                    }
+                    
+                } catch (error) {
+                    console.error('❌ Failed to decode manifest:', error);
+                }
+            }
+            
+            // Show install readiness
+            setTimeout(() => {
+                const isReady = (location.protocol === 'https:' || location.hostname === 'localhost') && 
+                               'serviceWorker' in navigator && 
+                               document.querySelector('link[rel="manifest"]');
+                               
+                console.log(isReady ? '✅ PWA Ready for installation' : '❌ PWA Not ready for installation');
+                
+                if (!isReady) {
+                    console.log('PWA Requirements not met. Install button will show manual instructions.');
+                }
+            }, 1000);
         }
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'996a09cc6161a39b',t:'MTc2MTgxODEzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'996a126295cea39b',t:'MTc2MTgxODQ5MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
