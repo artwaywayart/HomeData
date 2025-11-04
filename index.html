@@ -206,31 +206,34 @@
     </div>
    </div>
   </div><!-- Payment Modal -->
-  <div id="paymentModal" class="fixed inset-0 bg-black bg-opacity-50 modal-backdrop hidden flex items-center justify-center z-50">
-   <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-8 max-w-sm sm:max-w-md w-full mx-3 sm:mx-4 max-h-[90vh] overflow-y-auto">
-    <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 sm:mb-6 text-center leading-tight">แจ้งชำระเงิน</h3>
-    <div class="mb-4 sm:mb-6"><label class="block text-gray-700 text-sm font-bold mb-2 sm:mb-3 leading-tight">อัปโหลดหลักฐานการชำระเงิน</label>
-     <div class="relative"><input type="file" id="paymentImage" accept="image/*,.jpg,.jpeg,.png,.gif,.bmp,.webp,.svg,.tiff,.tif,.ico,.heic,.heif,.avif,.jfif" class="hidden">
-      <div onclick="document.getElementById('paymentImage').click()" class="border-2 border-dashed border-gray-300 hover:border-blue-400 rounded-lg p-4 sm:p-6 text-center cursor-pointer transition-all duration-200 hover:bg-gray-50">
-       <div class="flex flex-col items-center"><i class="fas fa-upload text-gray-400 text-xl sm:text-2xl mb-2 sm:mb-3"></i>
-        <p class="text-gray-600 font-medium mb-1 text-sm sm:text-base leading-tight">คลิกเพื่อเลือกไฟล์</p>
-        <p class="text-gray-400 text-xs sm:text-sm leading-tight">รองรับไฟล์รูปภาพทุกประเภท</p>
+  <div id="paymentModal" class="fixed inset-0 bg-black bg-opacity-50 modal-backdrop hidden flex items-center justify-center z-50 p-2">
+   <div class="w-[96%] sm:w-[95%] max-w-[400px] max-h-[90vh] overflow-hidden bg-transparent"><!-- Header with theme background -->
+    <div id="paymentModalHeader" class="bg-blue-600 text-white px-6 py-4 rounded-t-[25px] sm:rounded-t-[16px]">
+     <h3 class="text-lg sm:text-xl font-bold text-center">แจ้งชำระเงิน</h3>
+    </div><!-- Content with white background -->
+    <div class="bg-white rounded-b-[25px] sm:rounded-b-[16px] p-6 overflow-y-auto" style="max-height: calc(90vh - 80px);"><!-- Upload Section -->
+     <div class="mb-6"><label class="block text-gray-700 text-sm font-bold mb-3">อัปโหลดหลักฐานการชำระเงิน</label>
+      <div class="relative"><input type="file" id="paymentImage" accept="image/*,.jpg,.jpeg,.png,.gif,.bmp,.webp,.svg,.tiff,.tif,.ico,.heic,.heif,.avif,.jfif" class="hidden">
+       <div onclick="document.getElementById('paymentImage').click()" class="border-2 border-dashed border-gray-300 hover:border-blue-400 rounded-lg p-4 text-center cursor-pointer transition-all duration-200 hover:bg-gray-50">
+        <div class="flex flex-col items-center"><i class="fas fa-upload text-gray-400 text-xl mb-2"></i>
+         <p class="text-gray-600 font-medium text-base">คลิกเพื่อเลือกไฟล์</p>
+        </div>
        </div>
       </div>
-     </div>
-     <div id="imagePreview" class="mt-4 hidden">
-      <div class="relative"><img id="previewImg" class="w-full h-48 object-cover rounded-lg border border-gray-200"> <button onclick="removeImage()" class="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white w-7 h-7 rounded-full flex items-center justify-center transition-colors shadow-lg"> <i class="fas fa-times text-xs"></i> </button>
-       <div class="absolute bottom-2 left-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-medium"><i class="fas fa-check mr-1"></i>พร้อมใช้งาน
+      <div id="imagePreview" class="mt-4 hidden">
+       <div class="relative"><img id="previewImg" class="w-full h-48 object-cover rounded-lg border border-gray-200"> <button onclick="removeImage()" class="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center transition-colors shadow-lg"> <i class="fas fa-times text-sm"></i> </button>
+        <div class="absolute bottom-2 left-2 bg-green-500 text-white px-3 py-1 rounded-lg text-sm font-medium"><i class="fas fa-check mr-1"></i>พร้อมใช้งาน
+        </div>
        </div>
       </div>
+     </div><!-- Amount Section -->
+     <div class="mb-6"><label class="block text-gray-700 text-sm font-bold mb-2">จำนวนเงินที่ชำระ</label> <input type="number" id="paymentAmount" min="13000" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base transition-all duration-200" placeholder="กรุณาใส่จำนวนเงิน (ขั้นต่ำ 13,000 บาท)">
+      <p class="text-sm text-red-500 mt-2 flex items-center"><i class="fas fa-exclamation-triangle mr-1"></i> จำนวนเงินขั้นต่ำ 13,000 บาท</p>
+     </div><!-- DateTime Section -->
+     <div class="mb-8"><label class="block text-gray-700 text-sm font-bold mb-2">วันที่และเวลา</label> <input type="text" id="paymentDateTime" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-base" readonly>
+     </div><!-- Action Buttons -->
+     <div class="space-y-3"><button id="confirmBtn" onclick="confirmPayment()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-6 rounded-[15px] transition-all duration-200 text-base disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"> <span id="confirmText" class="flex items-center justify-center"> <i class="fas fa-check-circle mr-2"></i> ยืนยันการชำระเงิน </span> <span id="loadingText" class="hidden flex items-center justify-center"> <i class="fas fa-spinner fa-spin mr-2"></i> กำลังบันทึก... </span> </button> <button onclick="hidePaymentModal()" class="w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-4 px-6 rounded-[15px] transition-all duration-200 text-base shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"> <i class="fas fa-times mr-2"></i> ยกเลิก </button>
      </div>
-    </div>
-    <div class="mb-4 sm:mb-6"><label class="block text-gray-700 text-sm font-bold mb-2 leading-tight">จำนวนเงินที่ชำระ</label> <input type="number" id="paymentAmount" min="13000" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 text-sm sm:text-base" placeholder="กรุณาใส่จำนวนเงิน (ขั้นต่ำ 13,000 บาท)">
-     <p class="text-xs sm:text-sm text-red-500 mt-1 leading-tight">*จำนวนเงินขั้นต่ำ 13,000 บาท</p>
-    </div>
-    <div class="mb-4 sm:mb-6"><label class="block text-gray-700 text-sm font-bold mb-2 leading-tight">วันที่และเวลา</label> <input type="text" id="paymentDateTime" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 text-sm sm:text-base" readonly>
-    </div>
-    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4"><button id="confirmBtn" onclick="confirmPayment()" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 sm:py-2 px-4 rounded-lg transition-colors text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"> <span id="confirmText">ยืนยันการชำระเงิน</span> <span id="loadingText" class="hidden flex items-center justify-center"> <i class="fas fa-spinner fa-spin mr-2"></i>กำลังบันทึก... </span> </button> <button onclick="hidePaymentModal()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-2.5 sm:py-2 px-4 rounded-lg transition-colors text-sm sm:text-base">ยกเลิก</button>
     </div>
    </div>
   </div><!-- Success Modal -->
@@ -572,12 +575,12 @@
             const datetime = document.getElementById('paymentDateTime').value;
 
             if (!imageFile || !amount) {
-                showError('กรุณากรอกข้อมูลให้ครบถ้วน');
+                showErrorMessage('กรุณากรอกข้อมูลให้ครบถ้วน');
                 return;
             }
 
             if (parseFloat(amount) < 13000) {
-                showError('จำนวนเงินต้องไม่ต่ำกว่า 13,000 บาท');
+                showErrorMessage('จำนวนเงินต้องไม่ต่ำกว่า 13,000 บาท');
                 return;
             }
 
@@ -612,14 +615,14 @@
                 
                 if (result.success) {
                     hidePaymentModal();
-                    showSuccess();
+                    showSuccessMessage('บันทึกข้อมูลสำเร็จ รอการอนุมัติ 1-2 วันหลังทำการ');
                     loadData();
                 } else {
-                    showError('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+                    showErrorMessage('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
                 }
             } catch (error) {
                 console.error('Error:', error);
-                showError('เกิดข้อผิดพลาดในการส่งข้อมูล');
+                showErrorMessage('เกิดข้อผิดพลาดในการส่งข้อมูล');
             } finally {
                 // Reset loading state
                 confirmBtn.disabled = false;
@@ -998,11 +1001,16 @@
         function showSuccessMessage(message) {
             // Create a temporary success notification
             const notification = document.createElement('div');
-            notification.className = 'fixed top-20 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300';
+            notification.className = 'fixed top-20 right-4 bg-green-500 text-white px-6 py-4 rounded-[15px] shadow-xl z-50 transform translate-x-full transition-all duration-300 border-l-4 border-green-300';
             notification.innerHTML = `
                 <div class="flex items-center">
-                    <i class="fas fa-check-circle mr-2"></i>
-                    <span>${message}</span>
+                    <div class="bg-green-400 rounded-full p-1 mr-3">
+                        <i class="fas fa-check text-white text-sm"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-sm">สำเร็จ!</div>
+                        <div class="text-sm opacity-90">${message}</div>
+                    </div>
                 </div>
             `;
             
@@ -1013,13 +1021,49 @@
                 notification.classList.remove('translate-x-full');
             }, 100);
             
-            // Auto remove after 3 seconds
+            // Auto remove after 4 seconds
             setTimeout(() => {
                 notification.classList.add('translate-x-full');
                 setTimeout(() => {
-                    document.body.removeChild(notification);
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
                 }, 300);
-            }, 3000);
+            }, 4000);
+        }
+
+        function showErrorMessage(message) {
+            // Create a temporary error notification
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-20 right-4 bg-red-500 text-white px-6 py-4 rounded-[15px] shadow-xl z-50 transform translate-x-full transition-all duration-300 border-l-4 border-red-300';
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <div class="bg-red-400 rounded-full p-1 mr-3">
+                        <i class="fas fa-exclamation-triangle text-white text-sm"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-sm">เกิดข้อผิดพลาด!</div>
+                        <div class="text-sm opacity-90">${message}</div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 5000);
         }
 
         // Image modal functions
@@ -1157,6 +1201,38 @@
             // Update body background
             body.classList.remove('bg-gradient-to-br', 'from-blue-50', 'to-indigo-100');
             body.classList.add('bg-gradient-to-br');
+            
+            // Update payment modal header color
+            const paymentModalHeader = document.getElementById('paymentModalHeader');
+            if (paymentModalHeader) {
+                // Remove existing theme classes
+                paymentModalHeader.classList.remove('bg-blue-600', 'bg-gray-600', 'bg-purple-600', 'bg-yellow-600', 'bg-red-600', 'bg-cyan-600', 'bg-indigo-600');
+                
+                // Apply theme-specific header color
+                switch(themeName) {
+                    case 'green':
+                        paymentModalHeader.classList.add('bg-gray-600');
+                        break;
+                    case 'purple':
+                        paymentModalHeader.classList.add('bg-purple-600');
+                        break;
+                    case 'yellow':
+                        paymentModalHeader.classList.add('bg-yellow-600');
+                        break;
+                    case 'red':
+                        paymentModalHeader.classList.add('bg-red-600');
+                        break;
+                    case 'cyan':
+                        paymentModalHeader.classList.add('bg-cyan-600');
+                        break;
+                    case 'darkblue':
+                        paymentModalHeader.classList.add('bg-indigo-600');
+                        break;
+                    default: // blue
+                        paymentModalHeader.classList.add('bg-blue-600');
+                        break;
+                }
+            }
             
             switch(themeName) {
                 case 'green':
@@ -1560,5 +1636,5 @@
             }, 1000);
         }
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'996fd4999305252c',t:'MTc2MTg3ODg3NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9991772fb5b7eba0',t:'MTc2MjIzMTU2NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
