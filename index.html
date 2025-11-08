@@ -153,8 +153,7 @@
    </div><!-- Card 2: Payment -->
    <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6 card-shadow">
     <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-5 text-center leading-tight">ยอดที่ต้องชำระ</h3>
-    <p class="text-2xl sm:text-3xl font-bold text-orange-600 mb-2 sm:mb-3 text-center leading-tight">13,000 บาท</p>
-    <p class="text-base sm:text-lg text-gray-600 mb-4 sm:mb-5 text-center leading-tight">กำหนดชำระวันที่ XX ของทุกเดือน</p><button onclick="showPaymentModal()" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3.5 sm:py-4 px-5 sm:px-7 rounded-lg sm:rounded-xl transition-colors text-base sm:text-lg"> <i class="fas fa-credit-card mr-2 sm:mr-2.5 text-base"></i>แจ้งชำระเงิน </button>
+    <p class="text-2xl sm:text-3xl font-bold text-orange-600 mb-4 sm:mb-5 text-center leading-tight">13,000 บาท</p><button onclick="showPaymentModal()" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3.5 sm:py-4 px-5 sm:px-7 rounded-lg sm:rounded-xl transition-colors text-base sm:text-lg"> <i class="fas fa-credit-card mr-2 sm:mr-2.5 text-base"></i>แจ้งชำระเงิน </button>
    </div><!-- Card 3: Payment History -->
    <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 card-shadow">
     <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4 leading-tight">ประวัติการชำระเงิน</h3>
@@ -227,8 +226,7 @@
        </div>
       </div>
      </div><!-- Amount Section -->
-     <div class="mb-6"><label class="block text-gray-700 text-sm font-bold mb-2">จำนวนเงินที่ชำระ</label> <input type="number" id="paymentAmount" min="13000" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base transition-all duration-200" placeholder="กรุณาใส่จำนวนเงิน (ขั้นต่ำ 13,000 บาท)">
-      <p class="text-sm text-red-500 mt-2 flex items-center"><i class="fas fa-exclamation-triangle mr-1"></i> จำนวนเงินขั้นต่ำ 13,000 บาท</p>
+     <div class="mb-6"><label class="block text-gray-700 text-sm font-bold mb-2">จำนวนเงินที่ชำระ</label> <input type="number" id="paymentAmount" min="1" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base transition-all duration-200" placeholder="กรุณาใส่จำนวนเงิน">
      </div><!-- DateTime Section -->
      <div class="mb-8"><label class="block text-gray-700 text-sm font-bold mb-2">วันที่และเวลา</label> <input type="text" id="paymentDateTime" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-base" readonly>
      </div><!-- Action Buttons -->
@@ -579,8 +577,8 @@
                 return;
             }
 
-            if (parseFloat(amount) < 13000) {
-                showErrorMessage('จำนวนเงินต้องไม่ต่ำกว่า 13,000 บาท');
+            if (parseFloat(amount) <= 0) {
+                showErrorMessage('กรุณาใส่จำนวนเงินที่ถูกต้อง');
                 return;
             }
 
@@ -1636,5 +1634,5 @@
             }, 1000);
         }
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9991772fb5b7eba0',t:'MTc2MjIzMTU2NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99b56aff8263ae45',t:'MTc2MjYwODU1My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
