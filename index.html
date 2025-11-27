@@ -126,7 +126,7 @@
        <div class="text-sm sm:text-base text-gray-500 leading-tight text-center mb-3">
         ชำระแล้ว
        </div>
-       <div id="totalPaid" class="font-bold text-2xl sm:text-3xl text-gray-800 leading-tight text-center">
+       <div id="totalPaidCenter" class="font-bold text-2xl sm:text-3xl text-gray-800 leading-tight text-center">
         0 บาท
        </div>
       </div>
@@ -408,13 +408,13 @@
             try {
                 const response = await fetch(`${SCRIPT_URL}?action=getData`);
                 const data = await response.json();
-                console.log('Raw data from server:', data);
+                console.log('✅ Raw data from server:', data);
                 originalData = [...data];
                 allData = [...data].reverse();
-                console.log('Processed data:', allData);
+                console.log('✅ Processed data (reversed):', allData);
                 updateUI(allData);
             } catch (error) {
-                console.error('Error loading data:', error);
+                console.error('❌ Error loading data:', error);
                 showErrorMessage('ไม่สามารถโหลดข้อมูลได้');
             }
         }
@@ -423,39 +423,59 @@
             let totalPaid = 0;
             let paidInstallments = 0;
             
-            console.log('Updating UI with data:', data);
+            console.log('🔄 Starting UI update with data length:', data.length);
             
+            // คำนวณยอดรวม
             data.forEach((row, index) => {
-                console.log(`Row ${index}:`, {
+                const statusTrimmed = (row.status || '').trim();
+                console.log(`📊 Row ${index + 1}:`, {
                     amount: row.amount,
                     status: row.status,
-                    statusType: typeof row.status,
-                    statusMatch: row.status === 'จ่ายแล้ว'
+                    statusTrimmed: statusTrimmed,
+                    isMatch: statusTrimmed === 'จ่ายแล้ว'
                 });
                 
-                if (row.status === 'จ่ายแล้ว') {
+                if (statusTrimmed === 'จ่ายแล้ว') {
                     const amount = parseFloat(row.amount) || 0;
                     totalPaid += amount;
                     paidInstallments += 1;
-                    console.log(`Adding payment: ${amount}, New total: ${totalPaid}`);
+                    console.log(`✅ ตรวจพบการชำระ: ${amount.toLocaleString()} บาท (รวม: ${totalPaid.toLocaleString()} บาท, งวดที่ ${paidInstallments})`);
                 }
             });
 
-            console.log('Final totals:', { totalPaid, paidInstallments });
+            console.log('💰 สรุปยอดรวม:', {
+                totalPaid: totalPaid.toLocaleString(),
+                paidInstallments: paidInstallments
+            });
 
-            document.getElementById('totalPaid').textContent = totalPaid.toLocaleString() + ' บาท';
-            document.getElementById('paidInstallments').textContent = paidInstallments + ' งวด';
+            // อัปเดต UI ทันที
+            const totalPaidCenter = document.getElementById('totalPaidCenter');
+            const paidInstallmentsElement = document.getElementById('paidInstallments');
             
+            if (totalPaidCenter) {
+                totalPaidCenter.textContent = totalPaid.toLocaleString() + ' บาท';
+                console.log('✅ อัปเดตยอดในวงกลม:', totalPaidCenter.textContent);
+            }
+            
+            if (paidInstallmentsElement) {
+                paidInstallmentsElement.textContent = paidInstallments + ' งวด';
+                console.log('✅ อัปเดตจำนวนงวด:', paidInstallmentsElement.textContent);
+            }
+            
+            // อัปเดต Progress Circle
             const progressPercent = (paidInstallments / 84) * 100;
             const progressCircle = document.getElementById('progressCircle');
             const circumference = 2 * Math.PI * 50;
             const offset = circumference - (progressPercent / 100) * circumference;
             progressCircle.style.strokeDashoffset = offset;
+            console.log('📈 Progress:', progressPercent.toFixed(2) + '%');
 
             updatePaymentHistory(data);
             if (isAdmin) {
                 updateAdminTable(data);
             }
+            
+            console.log('✅ UI Update สำเร็จ');
         }
 
         function updatePaymentHistory(data) {
@@ -602,7 +622,7 @@
                 if (result.success) {
                     hidePaymentModal();
                     showSuccessMessage('บันทึกข้อมูลสำเร็จ สถานะ: จ่ายแล้ว');
-                    loadData();
+                    await loadData();
                 } else {
                     showErrorMessage('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
                 }
@@ -713,17 +733,11 @@
                         </div>` : ''}
                     </div>
                     
-                    <div class="space-y-2">
-                        <button onclick="openImageInNewTab('${row.imageUrl}')" class="w-full group bg-gray-600 hover:bg-gray-700 text-white py-2.5 px-4 rounded-lg text-sm font-medium transition-all duration-200 shadow-sm hover:shadow-md flex items-center justify-center">
-                            <i class="fas fa-receipt mr-2 text-xs"></i>
-                            <span>สลีปโอนเงิน</span>
-                            <i class="fas fa-external-link-alt ml-2 text-xs opacity-70 group-hover:opacity-100 transition-opacity"></i>
-                        </button>
-                        <button onclick="showEditModal(${index})" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2.5 px-4 rounded-lg text-sm font-medium transition-colors flex items-center justify-center">
-                            <i class="fas fa-edit mr-2 text-xs"></i>
-                            แก้ไขจำนวนเงิน
-                        </button>
-                    </div>
+                    <button onclick="openImageInNewTab('${row.imageUrl}')" class="w-full group bg-gray-600 hover:bg-gray-700 text-white py-2.5 px-4 rounded-lg text-sm font-medium transition-all duration-200 shadow-sm hover:shadow-md flex items-center justify-center">
+                        <i class="fas fa-receipt mr-2 text-xs"></i>
+                        <span>สลีปโอนเงิน</span>
+                        <i class="fas fa-external-link-alt ml-2 text-xs opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                    </button>
                 </div>
                 `;
             }).join('');
@@ -1172,7 +1186,7 @@
                             </div>
                             <div class="flex items-center">
                                 <div class="bg-blue-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">3</div>
-                                <span class="text-sm">แตะ "เพิ่ม" เพื่อติดตั้ง</span>
+                                <span class="text-sm">กดปุ่ม "เพิ่ม" เพื่อติดตั้ง</span>
                             </div>
                         </div>
                         <button onclick="this.parentElement.parentElement.parentElement.remove()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-colors">
@@ -1330,5 +1344,5 @@
             }
         }
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a523f01f4864076',t:'MTc2NDI1MzAxNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a525ec0b37ffdfa',t:'MTc2NDI1NDMxNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
